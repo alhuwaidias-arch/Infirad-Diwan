@@ -235,7 +235,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Update active nav link on scroll
     window.addEventListener('scroll', function() {
-        const sections = ['home', 'categories', 'terms', 'about'];
+        const sections = ['home', 'categories', 'about', 'terms'];
         const navbarHeight = document.querySelector('header').offsetHeight;
         
         let current = '';
