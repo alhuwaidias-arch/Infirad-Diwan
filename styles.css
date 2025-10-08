@@ -1,4 +1,3 @@
-/* Global Styles */
 :root {
     --primary-color: #0d47a1;
     --secondary-color: #1976d2;
@@ -94,6 +93,59 @@ a:hover {
 .search-container {
     max-width: 600px;
     position: relative;
+    display: flex;
+    margin: 0 auto;
+}
+
+.search-container input {
+    flex-grow: 1;
+    padding: 12px 20px;
+    border-radius: 30px 0 0 30px;
+    border: 2px solid var(--primary-color);
+    font-size: 16px;
+    outline: none;
+    transition: var(--transition);
+}
+
+.search-container input:focus {
+    box-shadow: 0 0 0 3px rgba(13, 71, 161, 0.2);
+}
+
+.search-container .search-btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 0 30px 30px 0;
+    padding: 0 25px;
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 18px;
+}
+
+.search-container .search-btn:hover {
+    background-color: var(--secondary-color);
+}
+
+.category-tags {
+    margin-top: 20px;
+}
+
+.category-tags .badge {
+    margin: 5px;
+    padding: 8px 15px;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 20px;
+    background-color: var(--light-color);
+    color: var(--primary-color);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.category-tags .badge:hover {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    transform: translateY(-2px);
 }
 
 /* Stats Section */
@@ -245,7 +297,8 @@ a:hover {
 /* About Section */
 .about-features {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
     gap: 1.5rem;
 }
 
@@ -253,6 +306,18 @@ a:hover {
     display: flex;
     align-items: flex-start;
     gap: 1rem;
+    width: 48%;
+    background-color: var(--white-color);
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px var(--shadow-color);
+    transition: var(--transition);
+    margin-bottom: 1rem;
+}
+
+.about-feature:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px var(--shadow-color);
 }
 
 .about-feature-icon {
@@ -524,10 +589,6 @@ a:hover {
     color: var(--light-text-color);
 }
 
-.dark-mode-toggle {
-    margin-right: 15px;
-}
-
 .share-buttons {
     display: flex;
     justify-content: center;
@@ -607,6 +668,7 @@ a:hover {
     }
     
     .about-feature {
+        width: 100%;
         flex-direction: column;
         align-items: flex-start;
     }

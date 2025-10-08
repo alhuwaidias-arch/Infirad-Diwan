@@ -17,7 +17,7 @@
         <nav class="navbar navbar-expand-lg">
             <div class="container">
                 <a class="navbar-brand fw-bold fs-3 text-primary" href="index.html">
-                    <i class="fas fa-book-open me-2"></i>
+                    <img src="images/logos/logo_ar.PNG" alt="ديوان الانفراد" height="40" class="me-2">
                     ديوان الانفراد
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -256,7 +256,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 mb-4 mb-lg-0">
-                    <h3 class="footer-title">ديوان الانفراد</h3>
+                    <div class="footer-brand d-flex align-items-center mb-3">
+                        <img src="images/logos/عربي_تحت.PNG" alt="ديوان الانفراد" height="60" class="me-2">
+                    </div>
                     <p>منصة علمية عربية شاملة تهدف إلى إثراء المحتوى العلمي العربي وتسهيل الوصول إلى المعرفة.</p>
                     <div class="social-links">
                         <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
@@ -285,28 +287,31 @@
                     </ul>
                 </div>
                 <div class="col-lg-4 col-md-4">
-                    <h3 class="footer-title">اتصل بنا</h3>
+                    <h3 class="footer-title">تواصل معنا</h3>
                     <ul class="footer-contact">
                         <li><i class="fas fa-envelope"></i> info@diwan-alinfirad.com</li>
                         <li><i class="fas fa-phone"></i> +966 12 345 6789</li>
                         <li><i class="fas fa-map-marker-alt"></i> الرياض، المملكة العربية السعودية</li>
                     </ul>
-                    <div class="newsletter">
-                        <h4>اشترك في النشرة البريدية</h4>
-                        <div class="input-group">
-                            <input type="email" class="form-control" placeholder="البريد الإلكتروني">
-                            <button class="btn btn-primary" type="button">اشتراك</button>
-                        </div>
-                    </div>
                 </div>
             </div>
             <hr class="footer-divider">
-            <div class="footer-bottom text-center">
+            <div class="footer-bottom">
                 <p class="mb-0">© 2025 ديوان الانفراد. جميع الحقوق محفوظة.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">سياسة الخصوصية</a>
+                    <a href="#">شروط الاستخدام</a>
+                </div>
             </div>
         </div>
     </footer>
 
+    <!-- Dark Mode Toggle -->
+    <button id="darkModeToggle" class="dark-mode-toggle">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="script.js"></script>
 </body>
