@@ -813,3 +813,25 @@ html {
     gap: 0.5rem;
 }
 
+
+
+
+/* Category Stats */
+.category-stats {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    margin-bottom: 1rem;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    font-size: 0.9rem;
+    color: var(--light-text-color);
+}
+
+.category-stats span {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
