@@ -3,44 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ديوان الانفراد - المنصة العلمية العربية الشاملة</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap">
+    <title>ديوان الانفراد - المنصة العلمية العربية</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- Header -->
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-white">
+    <header class="sticky-top bg-white shadow-sm">
+        <nav class="navbar navbar-expand-lg navbar-light">
             <div class="container">
-                <a class="navbar-brand d-flex align-items-center" href="#">
-                    <img src="images/logos/logo_ar.PNG" alt="ديوان الانفراد" style="height: 50px;">
-                    <span class="fw-bold fs-3" style="color: #0a2351; margin-right: 120px;">ديوان الانفراد</span>
+                <a class="navbar-brand d-flex align-items-center" href="index.html">
+                    <img src="images/logos/icon.PNG" alt="ديوان الانفراد" height="50">
+                    <span class="fw-bold fs-3 me-3" style="color: #0a2351; margin-right: 120px;">ديوان الانفراد</span>
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto">
+                    <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link active" href="#home">الرئيسية</a>
+                            <a class="nav-link active" href="index.html">الرئيسية</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#about">عن المنصة</a>
+                            <a class="nav-link" href="about.html">عن المنصة</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#categories">المجالات العلمية</a>
+                            <a class="nav-link" href="categories.html">المجالات العلمية</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#terms">المصطلحات</a>
+                            <a class="nav-link" href="terms-list.html">المصطلحات</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#articles">المقالات</a>
+                            <a class="nav-link" href="articles.html">المقالات</a>
                         </li>
                     </ul>
-                    <div class="d-flex">
-                        <a href="#" class="btn btn-outline-primary me-2">تسجيل الدخول</a>
+                    <div class="d-flex gap-2">
+                        <a href="#" class="btn btn-outline-primary">تسجيل الدخول</a>
                         <a href="#" class="btn btn-primary">إنشاء حساب</a>
                     </div>
                 </div>
@@ -48,90 +50,72 @@
         </nav>
     </header>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero-section">
+    <!-- Hero Section with Search -->
+    <section class="hero-section py-5 bg-light">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-12 text-center">
-                    <h1 class="hero-title mb-4">المنصة العلمية العربية الشاملة</h1>
-                    <p class="hero-subtitle mb-5">منصة "ديوان الانفراد" هي منصة علمية عربية شاملة تهدف إلى إثراء المحتوى العلمي العربي وتسهيل الوصول إلى المعرفة من خلال توفير مصطلحات علمية دقيقة وموثوقة.</p>
-                    <div class="search-container mx-auto">
-                        <input type="text" placeholder="ابحث عن مصطلح علمي..." class="form-control">
-                        <button type="submit" class="search-btn"><i class="fas fa-search"></i></button>
+                    <h1 class="display-4 fw-bold mb-4">المنصة العلمية العربية</h1>
+                    <p class="lead mb-4">منصة علمية باللغة العربية تهدف إلى إثراء المحتوى العلمي العربي بتعريف المفردات وشرحها بطريقة سهلة وواضحة لجعل العلم متاح للجميع</p>
+                    
+                    <!-- Search Bar -->
+                    <div class="search-container mx-auto" style="max-width: 700px;">
+                        <div class="input-group input-group-lg shadow-sm">
+                            <input type="text" class="form-control" placeholder="ابحث عن مصطلح علمي..." id="searchInput">
+                            <button class="btn btn-primary" type="button" id="searchButton">
+                                <i class="fas fa-search"></i> بحث
+                            </button>
+                        </div>
                     </div>
-                    <div class="category-tags text-center mt-4">
-                        <span class="badge bg-light text-primary">الفيزياء</span>
-                        <span class="badge bg-light text-primary">الكيمياء</span>
-                        <span class="badge bg-light text-primary">الأحياء</span>
-                        <span class="badge bg-light text-primary">الطاقة المتجددة</span>
-                        <span class="badge bg-light text-primary">الطب</span>
+
+                    <!-- Keywords -->
+                    <div class="mt-4">
+                        <span class="text-muted me-2">كلمات مفتاحية:</span>
+                        <a href="#" class="badge bg-primary-subtle text-primary me-2 mb-2">الطاقة المتجددة</a>
+                        <a href="#" class="badge bg-primary-subtle text-primary me-2 mb-2">الفيزياء الكمية</a>
+                        <a href="#" class="badge bg-primary-subtle text-primary me-2 mb-2">الهندسة الوراثية</a>
+                        <a href="#" class="badge bg-primary-subtle text-primary me-2 mb-2">الذكاء الاصطناعي</a>
+                        <a href="#" class="badge bg-primary-subtle text-primary me-2 mb-2">الكيمياء الحيوية</a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Stats Section -->
-    <section class="stats-section py-5">
+    <!-- Identity Section -->
+    <section id="identity" class="py-5">
         <div class="container">
-            <div class="row">
-                <div class="col-md-4 mb-4 mb-md-0">
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-book fa-3x text-primary"></i>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center">
+                            <div class="mb-3">
+                                <i class="fas fa-users fa-3x text-primary"></i>
+                            </div>
+                            <h3 class="h5 fw-bold">من نحن</h3>
+                            <p class="text-muted">منصة عربية تهدف إلى توفير المادة العلمية للمتعلمين والباحثين بطريقة واضحة وسهلة الوصول</p>
                         </div>
-                        <h2 class="stat-number">+1000</h2>
-                        <p class="stat-text">مصطلح علمي</p>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-4 mb-md-0">
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-flask fa-3x text-primary"></i>
-                        </div>
-                        <h2 class="stat-number">+0</h2>
-                        <p class="stat-text">مجال علمي</p>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-users fa-3x text-primary"></i>
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center">
+                            <div class="mb-3">
+                                <i class="fas fa-bullseye fa-3x text-primary"></i>
+                            </div>
+                            <h3 class="h5 fw-bold">الهدف</h3>
+                            <p class="text-muted">رفع المستوى المعرفي للعالم العربي وجعل المعرفة متاحة للجميع</p>
                         </div>
-                        <h2 class="stat-number">+0</h2>
-                        <p class="stat-text">مستخدم</p>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="py-5 bg-light">
-        <div class="container">
-            <h2 class="section-title text-center mb-5">عن منصة "ديوان الانفراد"</h2>
-            <div class="row">
-                <div class="col-lg-12">
-                    <p class="lead text-center mb-5">منصة "ديوان الانفراد" هي منصة علمية عربية شاملة تهدف إلى إثراء المحتوى العلمي العربي وتسهيل الوصول إلى المعرفة. تم تطوير المنصة لسد الفجوة الحالية في المحتوى العلمي العربي على الإنترنت.</p>
-                    <p class="text-center mb-5">تحتوي المنصة على قسمين رئيسيين في مرحلتها الأولية.</p>
-                    <div class="about-features">
-                        <div class="about-feature">
-                            <div class="about-feature-icon">
-                                <i class="fas fa-book"></i>
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center">
+                            <div class="mb-3">
+                                <i class="fas fa-eye fa-3x text-primary"></i>
                             </div>
-                            <div class="about-feature-text">
-                                <h4>المصطلحات العلمية</h4>
-                                <p>قاعدة بيانات شاملة للمصطلحات العلمية باللغة العربية.</p>
-                            </div>
-                        </div>
-                        <div class="about-feature">
-                            <div class="about-feature-icon">
-                                <i class="fas fa-file-alt"></i>
-                            </div>
-                            <div class="about-feature-text">
-                                <h4>المقالات العلمية</h4>
-                                <p>مقالات علمية موثوقة ومراجعة من قبل خبراء في مختلف المجالات.</p>
-                            </div>
+                            <h3 class="h5 fw-bold">الرؤية</h3>
+                            <p class="text-muted">أن نكون المرجع الرقمي الرئيسي للعلوم باللغة العربية</p>
                         </div>
                     </div>
                 </div>
@@ -140,275 +124,235 @@
     </section>
 
     <!-- Categories Section -->
-    <section id="categories" class="py-5">
+    <section id="categories" class="py-5 bg-light">
         <div class="container">
-            <h2 class="section-title text-center mb-5">المجالات العلمية</h2>
-            <div class="row">
-                <div class="col-md-4 mb-4">
-                    <div class="category-card">
-                        <div class="category-icon">
-                            <i class="fas fa-atom"></i>
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">المجالات العلمية</h2>
+                <p class="text-muted">استكشف مجموعة متنوعة من المجالات العلمية</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card category-card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center">
+                            <div class="category-icon mb-3">
+                                <i class="fas fa-atom fa-3x text-primary"></i>
+                            </div>
+                            <h3 class="h5 fw-bold">الفيزياء</h3>
+                            <p class="text-muted">علم دراسة المادة والطاقة والقوى الطبيعية</p>
+                            <a href="category-physics.html" class="btn btn-outline-primary btn-sm">استكشف المجال</a>
                         </div>
-                        <h3 class="category-title">الفيزياء</h3>
-                        <p class="category-description">مصطلحات علم الفيزياء والظواهر الطبيعية والقوانين الفيزيائية.</p>
-                        <a href="#" class="category-link">استكشف المصطلحات <i class="fas fa-arrow-left"></i></a>
                     </div>
                 </div>
-                <div class="col-md-4 mb-4">
-                    <div class="category-card">
-                        <div class="category-icon">
-                            <i class="fas fa-flask"></i>
+                <div class="col-md-4">
+                    <div class="card category-card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center">
+                            <div class="category-icon mb-3">
+                                <i class="fas fa-flask fa-3x text-primary"></i>
+                            </div>
+                            <h3 class="h5 fw-bold">الكيمياء</h3>
+                            <p class="text-muted">علم دراسة المواد وتركيبها وتفاعلاتها</p>
+                            <a href="category-chemistry.html" class="btn btn-outline-primary btn-sm">استكشف المجال</a>
                         </div>
-                        <h3 class="category-title">الكيمياء</h3>
-                        <p class="category-description">مصطلحات علم الكيمياء والتفاعلات الكيميائية والعناصر.</p>
-                        <a href="#" class="category-link">استكشف المصطلحات <i class="fas fa-arrow-left"></i></a>
                     </div>
                 </div>
-                <div class="col-md-4 mb-4">
-                    <div class="category-card">
-                        <div class="category-icon">
-                            <i class="fas fa-dna"></i>
+                <div class="col-md-4">
+                    <div class="card category-card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center">
+                            <div class="category-icon mb-3">
+                                <i class="fas fa-dna fa-3x text-primary"></i>
+                            </div>
+                            <h3 class="h5 fw-bold">الأحياء</h3>
+                            <p class="text-muted">علم دراسة الكائنات الحية ووظائفها</p>
+                            <a href="category-biology.html" class="btn btn-outline-primary btn-sm">استكشف المجال</a>
                         </div>
-                        <h3 class="category-title">الأحياء</h3>
-                        <p class="category-description">مصطلحات علم الأحياء والكائنات الحية والأنظمة البيولوجية.</p>
-                        <a href="#" class="category-link">استكشف المصطلحات <i class="fas fa-arrow-left"></i></a>
                     </div>
                 </div>
-                <div class="col-md-4 mb-4">
-                    <div class="category-card">
-                        <div class="category-icon">
-                            <i class="fas fa-sun"></i>
+                <div class="col-md-4">
+                    <div class="card category-card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center">
+                            <div class="category-icon mb-3">
+                                <i class="fas fa-solar-panel fa-3x text-primary"></i>
+                            </div>
+                            <h3 class="h5 fw-bold">الطاقة</h3>
+                            <p class="text-muted">علم دراسة مصادر الطاقة وتطبيقاتها</p>
+                            <a href="category-energy.html" class="btn btn-outline-primary btn-sm">استكشف المجال</a>
                         </div>
-                        <h3 class="category-title">الطاقة المتجددة</h3>
-                        <p class="category-description">مصطلحات الطاقة المتجددة والاستدامة والتقنيات الخضراء.</p>
-                        <a href="#" class="category-link">استكشف المصطلحات <i class="fas fa-arrow-left"></i></a>
                     </div>
                 </div>
-                <div class="col-md-4 mb-4">
-                    <div class="category-card">
-                        <div class="category-icon">
-                            <i class="fas fa-heartbeat"></i>
+                <div class="col-md-4">
+                    <div class="card category-card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center">
+                            <div class="category-icon mb-3">
+                                <i class="fas fa-cogs fa-3x text-primary"></i>
+                            </div>
+                            <h3 class="h5 fw-bold">الهندسة</h3>
+                            <p class="text-muted">علم تطبيق المبادئ العلمية في التصميم والبناء</p>
+                            <a href="category-engineering.html" class="btn btn-outline-primary btn-sm">استكشف المجال</a>
                         </div>
-                        <h3 class="category-title">الطب</h3>
-                        <p class="category-description">مصطلحات علم الطب والتشريح والأمراض والعلاجات.</p>
-                        <a href="#" class="category-link">استكشف المصطلحات <i class="fas fa-arrow-left"></i></a>
                     </div>
                 </div>
-                <div class="col-md-4 mb-4">
-                    <div class="category-card">
-                        <div class="category-icon">
-                            <i class="fas fa-brain"></i>
+                <div class="col-md-4">
+                    <div class="card category-card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center">
+                            <div class="category-icon mb-3">
+                                <i class="fas fa-leaf fa-3x text-primary"></i>
+                            </div>
+                            <h3 class="h5 fw-bold">الطبيعة</h3>
+                            <p class="text-muted">علم دراسة البيئة والنظم الطبيعية</p>
+                            <a href="category-nature.html" class="btn btn-outline-primary btn-sm">استكشف المجال</a>
                         </div>
-                        <h3 class="category-title">علم النفس</h3>
-                        <p class="category-description">مصطلحات علم النفس والسلوك البشري والصحة النفسية.</p>
-                        <a href="#" class="category-link">استكشف المصطلحات <i class="fas fa-arrow-left"></i></a>
                     </div>
                 </div>
+            </div>
+            <div class="text-center mt-4">
+                <a href="categories.html" class="btn btn-primary">المزيد من المجالات</a>
             </div>
         </div>
     </section>
 
-    <!-- Featured Terms Section -->
+    <!-- Terms Section -->
     <section id="terms" class="py-5">
         <div class="container">
-            <h2 class="section-title text-center mb-5">مصطلحات مميزة</h2>
-            <div class="row">
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <a href="term.html" class="text-decoration-none">
-                        <div class="term-card">
-                            <div class="term-header">
-                                <h3 class="term-title">الطاقة الشمسية</h3>
-                                <p class="term-subtitle">الطاقة المتجددة</p>
-                            </div>
-                            <div class="term-body">
-                                <p>الطاقة الشمسية هي طاقة مستمدة من أشعة الشمس، ويمكن تحويلها إلى حرارة أو كهرباء.</p>
-                                <div class="term-image">
-                                    <img src="images/solar-energy.jpg" alt="الطاقة الشمسية" class="img-fluid">
-                                </div>
-                            </div>
-                            <div class="term-footer">
-                                <div class="term-meta">
-                                    <span><i class="far fa-eye"></i> 1250</span>
-                                    <span><i class="far fa-comment"></i> 8</span>
-                                </div>
-                                <div class="term-actions">
-                                    <a href="#" class="bookmark-btn" onclick="event.preventDefault(); event.stopPropagation();"><i class="far fa-bookmark"></i></a>
-                                    <a href="#" class="share-btn" onclick="event.preventDefault(); event.stopPropagation();"><i class="fas fa-share-alt"></i></a>
-                                </div>
-                            </div>
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">المصطلحات العلمية</h2>
+                <p class="text-muted">تعرف على أهم المصطلحات العلمية</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card term-card h-100 border-0 shadow-sm">
+                        <img src="images/heat.jpg" class="card-img-top" alt="الحرارة" style="height: 200px; object-fit: cover;">
+                        <div class="card-body">
+                            <span class="badge bg-primary mb-2">الفيزياء</span>
+                            <h3 class="h5 fw-bold">الحرارة</h3>
+                            <p class="text-muted">هي شكل من أشكال الطاقة، تمثل الطاقة الحركية الكلية للجزيئات في المادة</p>
+                            <a href="term-heat.html" class="btn btn-outline-primary btn-sm">اقرأ المزيد</a>
                         </div>
-                    </a>
+                    </div>
                 </div>
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <a href="term.html" class="text-decoration-none">
-                        <div class="term-card">
-                            <div class="term-header">
-                                <h3 class="term-title">الحمض النووي</h3>
-                                <p class="term-subtitle">الأحياء</p>
-                            </div>
-                            <div class="term-body">
-                                <p>الحمض النووي (DNA) هو جزيء يحمل المعلومات الوراثية اللازمة لنمو وتطور الكائنات الحية.</p>
-                                <div class="term-image">
-                                    <img src="images/dna.jpg" alt="الحمض النووي" class="img-fluid">
-                                </div>
-                            </div>
-                            <div class="term-footer">
-                                <div class="term-meta">
-                                    <span><i class="far fa-eye"></i> 980</span>
-                                    <span><i class="far fa-comment"></i> 5</span>
-                                </div>
-                                <div class="term-actions">
-                                    <a href="#" class="bookmark-btn" onclick="event.preventDefault(); event.stopPropagation();"><i class="far fa-bookmark"></i></a>
-                                    <a href="#" class="share-btn" onclick="event.preventDefault(); event.stopPropagation();"><i class="fas fa-share-alt"></i></a>
-                                </div>
-                            </div>
+                <div class="col-md-4">
+                    <div class="card term-card h-100 border-0 shadow-sm">
+                        <img src="images/dna.jpg" class="card-img-top" alt="الخلية" style="height: 200px; object-fit: cover;">
+                        <div class="card-body">
+                            <span class="badge bg-primary mb-2">الأحياء</span>
+                            <h3 class="h5 fw-bold">الخلية</h3>
+                            <p class="text-muted">هي الوحدة الأساسية للحياة في جميع الكائنات الحية، وهي أصغر وحدة قادرة على القيام بجميع وظائف الكائن الحي</p>
+                            <a href="term-cell.html" class="btn btn-outline-primary btn-sm">اقرأ المزيد</a>
                         </div>
-                    </a>
+                    </div>
                 </div>
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <a href="term.html" class="text-decoration-none">
-                        <div class="term-card">
-                            <div class="term-header">
-                                <h3 class="term-title">طاقة الرياح</h3>
-                                <p class="term-subtitle">الطاقة المتجددة</p>
-                            </div>
-                            <div class="term-body">
-                                <p>طاقة الرياح هي عملية تحويل حركة الرياح إلى شكل مفيد من أشكال الطاقة، مثل الكهرباء.</p>
-                                <div class="term-image">
-                                    <img src="images/wind-energy.jpg" alt="طاقة الرياح" class="img-fluid">
-                                </div>
-                            </div>
-                            <div class="term-footer">
-                                <div class="term-meta">
-                                    <span><i class="far fa-eye"></i> 750</span>
-                                    <span><i class="far fa-comment"></i> 3</span>
-                                </div>
-                                <div class="term-actions">
-                                    <a href="#" class="bookmark-btn" onclick="event.preventDefault(); event.stopPropagation();"><i class="far fa-bookmark"></i></a>
-                                    <a href="#" class="share-btn" onclick="event.preventDefault(); event.stopPropagation();"><i class="fas fa-share-alt"></i></a>
-                                </div>
-                            </div>
+                <div class="col-md-4">
+                    <div class="card term-card h-100 border-0 shadow-sm">
+                        <img src="images/solar-energy.jpg" class="card-img-top" alt="الذرة" style="height: 200px; object-fit: cover;">
+                        <div class="card-body">
+                            <span class="badge bg-primary mb-2">الكيمياء</span>
+                            <h3 class="h5 fw-bold">الذرة</h3>
+                            <p class="text-muted">هي أصغر وحدة بنائية للمادة تحتفظ بخصائص العنصر الكيميائي</p>
+                            <a href="term-atom.html" class="btn btn-outline-primary btn-sm">اقرأ المزيد</a>
                         </div>
-                    </a>
+                    </div>
                 </div>
             </div>
             <div class="text-center mt-4">
-                <a href="terms-list.html" class="btn btn-primary">عرض المزيد من المصطلحات</a>
+                <a href="terms-list.html" class="btn btn-primary">المزيد من المصطلحات</a>
             </div>
         </div>
     </section>
 
-    <!-- Featured Articles Section -->
+    <!-- Articles Section -->
     <section id="articles" class="py-5 bg-light">
         <div class="container">
-            <h2 class="section-title text-center mb-5">مقالات علمية مميزة</h2>
-            <div class="row">
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="article-card">
-                        <div class="article-image">
-                            <img src="images/solar-energy.jpg" alt="الطاقة الشمسية" class="img-fluid">
-                        </div>
-                        <div class="article-content">
-                            <span class="article-category">الطاقة المتجددة</span>
-                            <h3 class="article-title">مستقبل الطاقة الشمسية في العالم العربي</h3>
-                            <p class="article-excerpt">استكشاف إمكانيات الطاقة الشمسية وتطبيقاتها في المنطقة العربية...</p>
-                            <div class="article-meta">
-                                <span><i class="far fa-calendar"></i> 15 يناير 2024</span>
-                                <span><i class="far fa-clock"></i> 5 دقائق</span>
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">المقالات العلمية</h2>
+                <p class="text-muted">اقرأ أحدث المقالات العلمية</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card article-card h-100 border-0 shadow-sm">
+                        <img src="images/wind-energy.jpg" class="card-img-top" alt="الطاقة المتجددة" style="height: 200px; object-fit: cover;">
+                        <div class="card-body">
+                            <span class="badge bg-success mb-2">الطاقة</span>
+                            <h3 class="h5 fw-bold">الطاقة المتجددة: طريق الإنسانية نحو الاستدامة</h3>
+                            <p class="text-muted">تشكل الطاقة المتجددة تحولاً جوهرياً في إدارة موارد الطاقة عالمياً...</p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <small class="text-muted"><i class="far fa-clock"></i> 15 دقيقة</small>
+                                <a href="article-renewable-energy.html" class="btn btn-outline-primary btn-sm">اقرأ المزيد</a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="article-card">
-                        <div class="article-image">
-                            <img src="images/dna.jpg" alt="الحمض النووي" class="img-fluid">
-                        </div>
-                        <div class="article-content">
-                            <span class="article-category">الأحياء</span>
-                            <h3 class="article-title">الهندسة الوراثية: الفرص والتحديات</h3>
-                            <p class="article-excerpt">نظرة شاملة على تقنيات الهندسة الوراثية وتطبيقاتها الطبية...</p>
-                            <div class="article-meta">
-                                <span><i class="far fa-calendar"></i> 12 يناير 2024</span>
-                                <span><i class="far fa-clock"></i> 7 دقائق</span>
+                <div class="col-md-4">
+                    <div class="card article-card h-100 border-0 shadow-sm">
+                        <img src="images/about.svg" class="card-img-top" alt="محركات السيارات الكهربائية" style="height: 200px; object-fit: cover;">
+                        <div class="card-body">
+                            <span class="badge bg-success mb-2">الهندسة</span>
+                            <h3 class="h5 fw-bold">محركات السيارات الكهربائية: ثورة في عالم النقل الحديث</h3>
+                            <p class="text-muted">يشهد قطاع النقل العالمي تحولاً جذرياً نحو الكهرباء كبديل عن الحرارة...</p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <small class="text-muted"><i class="far fa-clock"></i> 12 دقيقة</small>
+                                <a href="article-electric-motors.html" class="btn btn-outline-primary btn-sm">اقرأ المزيد</a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="article-card">
-                        <div class="article-image">
-                            <img src="images/science_lab.jpg" alt="مختبر علمي" class="img-fluid">
-                        </div>
-                        <div class="article-content">
-                            <span class="article-category">الكيمياء</span>
-                            <h3 class="article-title">الكيمياء الخضراء: نحو مستقبل مستدام</h3>
-                            <p class="article-excerpt">كيف تساهم الكيمياء الخضراء في حماية البيئة وتحقيق الاستدامة...</p>
-                            <div class="article-meta">
-                                <span><i class="far fa-calendar"></i> 10 يناير 2024</span>
-                                <span><i class="far fa-clock"></i> 6 دقائق</span>
+                <div class="col-md-4">
+                    <div class="card article-card h-100 border-0 shadow-sm">
+                        <img src="images/science_lab.jpg" class="card-img-top" alt="ماهية المحيطات" style="height: 200px; object-fit: cover;">
+                        <div class="card-body">
+                            <span class="badge bg-success mb-2">الطبيعة</span>
+                            <h3 class="h5 fw-bold">ماهية المحيطات</h3>
+                            <p class="text-muted">المحيطات هي المسطحات المائية الشاسعة التي تغطي أكثر من 70% من سطح الكرة الأرضية...</p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <small class="text-muted"><i class="far fa-clock"></i> 18 دقيقة</small>
+                                <a href="article-oceans.html" class="btn btn-outline-primary btn-sm">اقرأ المزيد</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="text-center mt-4">
-                <a href="articles.html" class="btn btn-primary">عرض المزيد من المقالات</a>
+                <a href="articles.html" class="btn btn-primary">المزيد من المقالات</a>
             </div>
         </div>
     </section>
 
     <!-- CTA Section -->
-    <section class="cta-section py-5">
+    <section class="cta-section py-5 bg-primary text-white">
         <div class="container text-center">
-            <h2 class="cta-title mb-4">انضم إلينا اليوم</h2>
-            <p class="cta-text mb-4">انضم إلى مجتمع "ديوان الانفراد" العلمي واستفد من آلاف المصطلحات العلمية والمقالات المتخصصة.</p>
-            <a href="#" class="btn btn-light btn-lg">إنشاء حساب مجاني</a>
+            <h2 class="fw-bold mb-3">انضم لمجتمعنا وشارك معرفتك</h2>
+            <p class="lead mb-4">كن جزءاً من مجتمع علمي عربي متنامي</p>
+            <a href="#" class="btn btn-light btn-lg">انضم الآن</a>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-dark text-white py-5">
+    <footer class="bg-dark text-white py-4">
         <div class="container">
             <div class="row">
-                <div class="col-lg-4 mb-4 mb-lg-0">
-                    <img src="images/logos/عربي_تحت.PNG" alt="ديوان الانفراد" class="mb-4" style="max-width: 200px;">
-                    <p>منصة علمية عربية شاملة تهدف إلى إثراء المحتوى العلمي العربي وتسهيل الوصول إلى المعرفة.</p>
-                    <div class="social-links">
-                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
+                <div class="col-md-4">
+                    <img src="images/logos/icon.PNG" alt="ديوان الانفراد" height="40" class="mb-3">
+                    <p>منصة علمية عربية لإثراء المحتوى العلمي العربي</p>
                 </div>
-                <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
-                    <h4 class="footer-title">روابط سريعة</h4>
-                    <ul class="footer-links">
-                        <li><a href="#">الرئيسية</a></li>
-                        <li><a href="#">المجالات العلمية</a></li>
-                        <li><a href="#">المصطلحات</a></li>
-                        <li><a href="#">عن المنصة</a></li>
+                <div class="col-md-4">
+                    <h5>الوصول السريع</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" class="text-white-50">الرئيسية</a></li>
+                        <li><a href="about.html" class="text-white-50">عن المنصة</a></li>
+                        <li><a href="categories.html" class="text-white-50">المجالات العلمية</a></li>
+                        <li><a href="terms-list.html" class="text-white-50">المصطلحات</a></li>
+                        <li><a href="articles.html" class="text-white-50">المقالات</a></li>
                     </ul>
                 </div>
-                <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
-                    <h4 class="footer-title">الأقسام</h4>
-                    <ul class="footer-links">
-                        <li><a href="#">المصطلحات العلمية</a></li>
-                        <li><a href="#">المقالات العلمية</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-4">
-                    <h4 class="footer-title">تواصل معنا</h4>
-                    <ul class="footer-contact">
-                        <li><i class="fas fa-envelope"></i> info@diwan-alinfirad.com</li>
-                        <li><i class="fas fa-phone"></i> +966 12 345 6789</li>
-                        <li><i class="fas fa-map-marker-alt"></i> الرياض، المملكة العربية السعودية</li>
-                    </ul>
+                <div class="col-md-4">
+                    <h5>التواصل</h5>
+                    <p class="text-white-50">
+                        <i class="fas fa-phone"></i> +966530151525<br>
+                        <i class="fas fa-envelope"></i> info@infiradengineering.com
+                    </p>
                 </div>
             </div>
-            <hr class="footer-divider">
-            <div class="footer-bottom text-center">
-                <p class="mb-0">© 2025 ديوان الانفراد. جميع الحقوق محفوظة.</p>
+            <hr class="bg-white">
+            <div class="text-center">
+                <p class="mb-0">&copy; 2024 ديوان الانفراد. جميع الحقوق محفوظة.</p>
             </div>
         </div>
     </footer>
@@ -417,3 +361,4 @@
     <script src="script.js"></script>
 </body>
 </html>
+

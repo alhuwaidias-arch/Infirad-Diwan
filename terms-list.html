@@ -3,44 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>جميع المصطلحات - ديوان الانفراد</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap">
+    <title>المصطلحات العلمية - ديوان الانفراد</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-white">
+    <header class="sticky-top bg-white shadow-sm">
+        <nav class="navbar navbar-expand-lg navbar-light">
             <div class="container">
                 <a class="navbar-brand d-flex align-items-center" href="index.html">
-                    <img src="images/logos/logo_ar.PNG" alt="ديوان الانفراد" style="height: 50px;">
-                    <span class="fw-bold fs-3" style="color: #0a2351; margin-right: 120px;">ديوان الانفراد</span>
+                    <img src="images/logos/icon.PNG" alt="ديوان الانفراد" height="50">
+                    <span class="fw-bold fs-3 me-3" style="color: #0a2351; margin-right: 120px;">ديوان الانفراد</span>
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="index.html#home">الرئيسية</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="index.html#about">عن المنصة</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="categories.html">المجالات العلمية</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="terms-list.html">المصطلحات</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="articles.html">المقالات</a>
-                        </li>
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item"><a class="nav-link" href="index.html">الرئيسية</a></li>
+                        <li class="nav-item"><a class="nav-link" href="about.html">عن المنصة</a></li>
+                        <li class="nav-item"><a class="nav-link" href="categories.html">المجالات العلمية</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="terms-list.html">المصطلحات</a></li>
+                        <li class="nav-item"><a class="nav-link" href="articles.html">المقالات</a></li>
                     </ul>
-                    <div class="d-flex">
-                        <a href="#" class="btn btn-outline-primary me-2">تسجيل الدخول</a>
+                    <div class="d-flex gap-2">
+                        <a href="#" class="btn btn-outline-primary">تسجيل الدخول</a>
                         <a href="#" class="btn btn-primary">إنشاء حساب</a>
                     </div>
                 </div>
@@ -48,254 +37,104 @@
         </nav>
     </header>
 
-    <!-- Page Header -->
-    <section class="py-5 bg-light">
+    <section class="py-5 bg-primary text-white">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h1 class="display-4 fw-bold text-primary mb-3">جميع المصطلحات العلمية</h1>
-                    <p class="lead text-muted">تصفح مكتبتنا الشاملة من المصطلحات العلمية المتخصصة</p>
-                </div>
+            <div class="text-center">
+                <h1 class="display-4 fw-bold mb-3">المصطلحات العلمية</h1>
+                <p class="lead">اكتشف المصطلحات العلمية وتعريفاتها الدقيقة</p>
             </div>
         </div>
     </section>
 
-    <!-- Search and Filter Section -->
-    <section class="py-4 bg-white border-bottom">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6 mb-3 mb-lg-0">
-                    <div class="search-container">
-                        <input type="text" placeholder="ابحث عن مصطلح..." class="form-control">
-                        <button type="submit" class="search-btn"><i class="fas fa-search"></i></button>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="d-flex gap-2 flex-wrap">
-                        <button class="btn btn-outline-primary btn-sm active">الكل</button>
-                        <button class="btn btn-outline-primary btn-sm">الفيزياء</button>
-                        <button class="btn btn-outline-primary btn-sm">الكيمياء</button>
-                        <button class="btn btn-outline-primary btn-sm">الأحياء</button>
-                        <button class="btn btn-outline-primary btn-sm">الطاقة المتجددة</button>
-                        <button class="btn btn-outline-primary btn-sm">الطب</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Terms Grid -->
     <section class="py-5">
         <div class="container">
-            <div class="row">
-                <!-- Term 1: Solar Energy -->
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <a href="term.html" class="text-decoration-none">
-                        <div class="term-card">
-                            <div class="term-header">
-                                <h3 class="term-title">الطاقة الشمسية</h3>
-                                <p class="term-subtitle">الطاقة المتجددة</p>
-                            </div>
-                            <div class="term-body">
-                                <p>الطاقة الشمسية هي طاقة مستمدة من أشعة الشمس، ويمكن تحويلها إلى حرارة أو كهرباء.</p>
-                                <div class="term-image">
-                                    <img src="images/solar-energy.jpg" alt="الطاقة الشمسية" class="img-fluid">
-                                </div>
-                            </div>
-                            <div class="term-footer">
-                                <div class="term-meta">
-                                    <span><i class="far fa-eye"></i> 1250</span>
-                                    <span><i class="far fa-comment"></i> 8</span>
-                                </div>
-                                <div class="term-actions">
-                                    <a href="#" class="bookmark-btn" onclick="event.preventDefault(); event.stopPropagation();"><i class="far fa-bookmark"></i></a>
-                                    <a href="#" class="share-btn" onclick="event.preventDefault(); event.stopPropagation();"><i class="fas fa-share-alt"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
+            <div class="row mb-4">
+                <div class="col-md-8">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="ابحث عن مصطلح..." id="termSearch">
+                        <button class="btn btn-primary"><i class="fas fa-search"></i></button>
+                    </div>
                 </div>
-
-                <!-- Term 2: DNA -->
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <a href="term.html" class="text-decoration-none">
-                        <div class="term-card">
-                            <div class="term-header">
-                                <h3 class="term-title">الحمض النووي</h3>
-                                <p class="term-subtitle">الأحياء</p>
-                            </div>
-                            <div class="term-body">
-                                <p>الحمض النووي (DNA) هو جزيء يحمل المعلومات الوراثية اللازمة لنمو وتطور الكائنات الحية.</p>
-                                <div class="term-image">
-                                    <img src="images/dna.jpg" alt="الحمض النووي" class="img-fluid">
-                                </div>
-                            </div>
-                            <div class="term-footer">
-                                <div class="term-meta">
-                                    <span><i class="far fa-eye"></i> 980</span>
-                                    <span><i class="far fa-comment"></i> 5</span>
-                                </div>
-                                <div class="term-actions">
-                                    <a href="#" class="bookmark-btn" onclick="event.preventDefault(); event.stopPropagation();"><i class="far fa-bookmark"></i></a>
-                                    <a href="#" class="share-btn" onclick="event.preventDefault(); event.stopPropagation();"><i class="fas fa-share-alt"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-
-                <!-- Term 3: Wind Energy -->
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <a href="term.html" class="text-decoration-none">
-                        <div class="term-card">
-                            <div class="term-header">
-                                <h3 class="term-title">طاقة الرياح</h3>
-                                <p class="term-subtitle">الطاقة المتجددة</p>
-                            </div>
-                            <div class="term-body">
-                                <p>طاقة الرياح هي عملية تحويل حركة الرياح إلى شكل مفيد من أشكال الطاقة، مثل الكهرباء.</p>
-                                <div class="term-image">
-                                    <img src="images/wind-energy.jpg" alt="طاقة الرياح" class="img-fluid">
-                                </div>
-                            </div>
-                            <div class="term-footer">
-                                <div class="term-meta">
-                                    <span><i class="far fa-eye"></i> 750</span>
-                                    <span><i class="far fa-comment"></i> 3</span>
-                                </div>
-                                <div class="term-actions">
-                                    <a href="#" class="bookmark-btn" onclick="event.preventDefault(); event.stopPropagation();"><i class="far fa-bookmark"></i></a>
-                                    <a href="#" class="share-btn" onclick="event.preventDefault(); event.stopPropagation();"><i class="fas fa-share-alt"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-
-                <!-- Term 4: Gravity -->
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <a href="term.html" class="text-decoration-none">
-                        <div class="term-card">
-                            <div class="term-header">
-                                <h3 class="term-title">الجاذبية</h3>
-                                <p class="term-subtitle">الفيزياء</p>
-                            </div>
-                            <div class="term-body">
-                                <p>الجاذبية هي قوة طبيعية تجذب الأجسام ذات الكتلة نحو بعضها البعض.</p>
-                            </div>
-                            <div class="term-footer">
-                                <div class="term-meta">
-                                    <span><i class="far fa-eye"></i> 890</span>
-                                    <span><i class="far fa-comment"></i> 12</span>
-                                </div>
-                                <div class="term-actions">
-                                    <a href="#" class="bookmark-btn" onclick="event.preventDefault(); event.stopPropagation();"><i class="far fa-bookmark"></i></a>
-                                    <a href="#" class="share-btn" onclick="event.preventDefault(); event.stopPropagation();"><i class="fas fa-share-alt"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-
-                <!-- Term 5: Photosynthesis -->
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <a href="term.html" class="text-decoration-none">
-                        <div class="term-card">
-                            <div class="term-header">
-                                <h3 class="term-title">التمثيل الضوئي</h3>
-                                <p class="term-subtitle">الأحياء</p>
-                            </div>
-                            <div class="term-body">
-                                <p>التمثيل الضوئي هو عملية تحويل الطاقة الضوئية إلى طاقة كيميائية في النباتات.</p>
-                            </div>
-                            <div class="term-footer">
-                                <div class="term-meta">
-                                    <span><i class="far fa-eye"></i> 720</span>
-                                    <span><i class="far fa-comment"></i> 6</span>
-                                </div>
-                                <div class="term-actions">
-                                    <a href="#" class="bookmark-btn" onclick="event.preventDefault(); event.stopPropagation();"><i class="far fa-bookmark"></i></a>
-                                    <a href="#" class="share-btn" onclick="event.preventDefault(); event.stopPropagation();"><i class="fas fa-share-alt"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-
-                <!-- Term 6: Chemical Reaction -->
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <a href="term.html" class="text-decoration-none">
-                        <div class="term-card">
-                            <div class="term-header">
-                                <h3 class="term-title">التفاعل الكيميائي</h3>
-                                <p class="term-subtitle">الكيمياء</p>
-                            </div>
-                            <div class="term-body">
-                                <p>التفاعل الكيميائي هو عملية تحول المواد المتفاعلة إلى مواد جديدة.</p>
-                            </div>
-                            <div class="term-footer">
-                                <div class="term-meta">
-                                    <span><i class="far fa-eye"></i> 650</span>
-                                    <span><i class="far fa-comment"></i> 4</span>
-                                </div>
-                                <div class="term-actions">
-                                    <a href="#" class="bookmark-btn" onclick="event.preventDefault(); event.stopPropagation();"><i class="far fa-bookmark"></i></a>
-                                    <a href="#" class="share-btn" onclick="event.preventDefault(); event.stopPropagation();"><i class="fas fa-share-alt"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
+                <div class="col-md-4">
+                    <select class="form-select" id="categoryFilter">
+                        <option value="all">جميع المجالات</option>
+                        <option value="physics">الفيزياء</option>
+                        <option value="chemistry">الكيمياء</option>
+                        <option value="biology">الأحياء</option>
+                        <option value="energy">الطاقة</option>
+                        <option value="engineering">الهندسة</option>
+                        <option value="nature">الطبيعة</option>
+                    </select>
                 </div>
             </div>
 
-            <!-- Pagination -->
-            <div class="row mt-5">
-                <div class="col-12">
-                    <nav aria-label="Page navigation">
-                        <ul class="pagination justify-content-center">
-                            <li class="page-item disabled">
-                                <a class="page-link" href="#" tabindex="-1">السابق</a>
-                            </li>
-                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">التالي</a>
-                            </li>
-                        </ul>
-                    </nav>
+            <div class="row g-4" id="termsGrid">
+                <div class="col-md-6" data-category="physics">
+                    <div class="card border-0 shadow-sm h-100 term-card">
+                        <div class="card-body">
+                            <span class="badge bg-primary mb-3">الفيزياء</span>
+                            <h5 class="fw-bold">الحرارة</h5>
+                            <p class="text-muted">شكل من أشكال الطاقة ينتقل بين الأجسام نتيجة فرق درجات الحرارة</p>
+                            <a href="term-heat.html" class="btn btn-outline-primary btn-sm">اقرأ المزيد</a>
+                        </div>
+                    </div>
                 </div>
+
+                <div class="col-md-6" data-category="biology">
+                    <div class="card border-0 shadow-sm h-100 term-card">
+                        <div class="card-body">
+                            <span class="badge bg-danger mb-3">الأحياء</span>
+                            <h5 class="fw-bold">الخلية</h5>
+                            <p class="text-muted">الوحدة البنائية والوظيفية الأساسية لجميع الكائنات الحية</p>
+                            <a href="term-cell.html" class="btn btn-outline-danger btn-sm">اقرأ المزيد</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6" data-category="chemistry">
+                    <div class="card border-0 shadow-sm h-100 term-card">
+                        <div class="card-body">
+                            <span class="badge bg-success mb-3">الكيمياء</span>
+                            <h5 class="fw-bold">الذرة</h5>
+                            <p class="text-muted">أصغر وحدة بنائية للمادة تحتفظ بخصائص العنصر الكيميائي</p>
+                            <a href="term-atom.html" class="btn btn-outline-success btn-sm">اقرأ المزيد</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-5">
+                <p class="text-muted">المزيد من المصطلحات قريباً...</p>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="bg-dark text-white py-5">
+    <footer class="bg-dark text-white py-4">
         <div class="container">
             <div class="row">
-                <div class="col-lg-4 mb-4 mb-lg-0">
-                    <h5 class="fw-bold mb-3">ديوان الانفراد</h5>
-                    <p>منصة علمية عربية شاملة تهدف إلى إثراء المحتوى العلمي العربي.</p>
+                <div class="col-md-4">
+                    <img src="images/logos/icon.PNG" alt="ديوان الانفراد" height="40" class="mb-3">
+                    <p>منصة علمية عربية لإثراء المحتوى العلمي العربي</p>
                 </div>
-                <div class="col-lg-4 mb-4 mb-lg-0">
-                    <h5 class="fw-bold mb-3">روابط سريعة</h5>
+                <div class="col-md-4">
+                    <h5>الوصول السريع</h5>
                     <ul class="list-unstyled">
-                        <li><a href="index.html" class="text-white-50 text-decoration-none">الرئيسية</a></li>
-                        <li><a href="index.html#categories" class="text-white-50 text-decoration-none">المجالات العلمية</a></li>
-                        <li><a href="terms-list.html" class="text-white-50 text-decoration-none">المصطلحات</a></li>
-                        <li><a href="index.html#about" class="text-white-50 text-decoration-none">عن المنصة</a></li>
+                        <li><a href="index.html" class="text-white-50">الرئيسية</a></li>
+                        <li><a href="about.html" class="text-white-50">عن المنصة</a></li>
+                        <li><a href="categories.html" class="text-white-50">المجالات العلمية</a></li>
+                        <li><a href="terms-list.html" class="text-white-50">المصطلحات</a></li>
+                        <li><a href="articles.html" class="text-white-50">المقالات</a></li>
                     </ul>
                 </div>
-                <div class="col-lg-4">
-                    <h5 class="fw-bold mb-3">تواصل معنا</h5>
-                    <div class="d-flex gap-3">
-                        <a href="#" class="text-white-50"><i class="fab fa-facebook fa-2x"></i></a>
-                        <a href="#" class="text-white-50"><i class="fab fa-twitter fa-2x"></i></a>
-                        <a href="#" class="text-white-50"><i class="fab fa-linkedin fa-2x"></i></a>
-                    </div>
+                <div class="col-md-4">
+                    <h5>التواصل</h5>
+                    <p class="text-white-50">
+                        <i class="fas fa-phone"></i> +966530151525<br>
+                        <i class="fas fa-envelope"></i> info@infiradengineering.com
+                    </p>
                 </div>
             </div>
-            <hr class="my-4 bg-white">
+            <hr class="bg-white">
             <div class="text-center">
                 <p class="mb-0">&copy; 2024 ديوان الانفراد. جميع الحقوق محفوظة.</p>
             </div>
@@ -304,5 +143,33 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="script.js"></script>
+    <script>
+        const termSearch = document.getElementById('termSearch');
+        const categoryFilter = document.getElementById('categoryFilter');
+        const termsGrid = document.getElementById('termsGrid');
+        const terms = termsGrid.querySelectorAll('[data-category]');
+
+        function filterTerms() {
+            const searchTerm = termSearch.value.toLowerCase();
+            const selectedCategory = categoryFilter.value;
+
+            terms.forEach(term => {
+                const title = term.querySelector('h5').textContent.toLowerCase();
+                const category = term.dataset.category;
+                
+                const matchesSearch = title.includes(searchTerm);
+                const matchesCategory = selectedCategory === 'all' || category === selectedCategory;
+                
+                if (matchesSearch && matchesCategory) {
+                    term.style.display = 'block';
+                } else {
+                    term.style.display = 'none';
+                }
+            });
+        }
+
+        termSearch.addEventListener('input', filterTerms);
+        categoryFilter.addEventListener('change', filterTerms);
+    </script>
 </body>
 </html>

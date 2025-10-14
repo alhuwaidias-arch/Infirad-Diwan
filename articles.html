@@ -3,44 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>المقالات العلمية - ديوان الانفراد</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap">
+    <title>المقالات - ديوان الانفراد</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-white">
+    <header class="sticky-top bg-white shadow-sm">
+        <nav class="navbar navbar-expand-lg navbar-light">
             <div class="container">
                 <a class="navbar-brand d-flex align-items-center" href="index.html">
-                    <img src="images/logos/logo_ar.PNG" alt="ديوان الانفراد" style="height: 50px;">
-                    <span class="fw-bold fs-3" style="color: #0a2351; margin-right: 120px;">ديوان الانفراد</span>
+                    <img src="images/logos/icon.PNG" alt="ديوان الانفراد" height="50">
+                    <span class="fw-bold fs-3 me-3" style="color: #0a2351; margin-right: 120px;">ديوان الانفراد</span>
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="index.html#home">الرئيسية</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="index.html#about">عن المنصة</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="categories.html">المجالات العلمية</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="terms-list.html">المصطلحات</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="articles.html">المقالات</a>
-                        </li>
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item"><a class="nav-link" href="index.html">الرئيسية</a></li>
+                        <li class="nav-item"><a class="nav-link" href="about.html">عن المنصة</a></li>
+                        <li class="nav-item"><a class="nav-link" href="categories.html">المجالات العلمية</a></li>
+                        <li class="nav-item"><a class="nav-link" href="terms-list.html">المصطلحات</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="articles.html">المقالات</a></li>
                     </ul>
-                    <div class="d-flex">
-                        <a href="#" class="btn btn-outline-primary me-2">تسجيل الدخول</a>
+                    <div class="d-flex gap-2">
+                        <a href="#" class="btn btn-outline-primary">تسجيل الدخول</a>
                         <a href="#" class="btn btn-primary">إنشاء حساب</a>
                     </div>
                 </div>
@@ -48,199 +37,113 @@
         </nav>
     </header>
 
-    <!-- Page Header -->
-    <section class="py-5 bg-light">
+    <section class="py-5 bg-primary text-white">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h1 class="display-4 fw-bold text-primary mb-3">المقالات العلمية</h1>
-                    <p class="lead text-muted">مقالات علمية موثوقة ومراجعة من قبل خبراء في مختلف المجالات</p>
-                </div>
+            <div class="text-center">
+                <h1 class="display-4 fw-bold mb-3">المقالات العلمية</h1>
+                <p class="lead">استكشف مجموعة متنوعة من المقالات العلمية المتخصصة</p>
             </div>
         </div>
     </section>
 
-    <!-- Filter Section -->
-    <section class="py-4 bg-white border-bottom">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-12">
-                    <div class="d-flex gap-2 flex-wrap justify-content-center">
-                        <button class="btn btn-outline-primary btn-sm active">الكل</button>
-                        <button class="btn btn-outline-primary btn-sm">الفيزياء</button>
-                        <button class="btn btn-outline-primary btn-sm">الكيمياء</button>
-                        <button class="btn btn-outline-primary btn-sm">الأحياء</button>
-                        <button class="btn btn-outline-primary btn-sm">الطاقة المتجددة</button>
-                        <button class="btn btn-outline-primary btn-sm">الطب</button>
-                        <button class="btn btn-outline-primary btn-sm">التكنولوجيا</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Articles Grid -->
     <section class="py-5">
         <div class="container">
-            <div class="row">
-                <!-- Article 1 -->
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="article-card">
-                        <div class="article-image">
-                            <img src="images/solar-energy.jpg" alt="الطاقة الشمسية" class="img-fluid">
-                        </div>
-                        <div class="article-content">
-                            <span class="article-category">الطاقة المتجددة</span>
-                            <h3 class="article-title">مستقبل الطاقة الشمسية في العالم العربي</h3>
-                            <p class="article-excerpt">استكشاف إمكانيات الطاقة الشمسية وتطبيقاتها في المنطقة العربية وكيف يمكن أن تساهم في تحقيق الاستدامة البيئية والاقتصادية.</p>
-                            <div class="article-meta">
-                                <span><i class="far fa-calendar"></i> 15 يناير 2024</span>
-                                <span><i class="far fa-clock"></i> 5 دقائق</span>
+            <div class="row mb-4">
+                <div class="col-md-8">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="ابحث عن مقال..." id="articleSearch">
+                        <button class="btn btn-primary"><i class="fas fa-search"></i></button>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <select class="form-select" id="categoryFilter">
+                        <option value="all">جميع المجالات</option>
+                        <option value="physics">الفيزياء</option>
+                        <option value="chemistry">الكيمياء</option>
+                        <option value="biology">الأحياء</option>
+                        <option value="energy">الطاقة</option>
+                        <option value="engineering">الهندسة</option>
+                        <option value="nature">الطبيعة</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row g-4" id="articlesGrid">
+                <div class="col-md-4" data-category="energy">
+                    <div class="card border-0 shadow-sm h-100 article-card">
+                        <div class="card-body">
+                            <span class="badge bg-success mb-3">الطاقة</span>
+                            <h5 class="fw-bold">الطاقة المتجددة: طريق الإنسانية نحو الاستدامة</h5>
+                            <p class="text-muted">استكشاف شامل لمصادر الطاقة المتجددة وأهميتها في بناء مستقبل مستدام</p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <small class="text-muted"><i class="fas fa-clock me-1"></i>10 دقائق</small>
+                                <a href="article-renewable-energy.html" class="btn btn-outline-primary btn-sm">اقرأ المزيد</a>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Article 2 -->
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="article-card">
-                        <div class="article-image">
-                            <img src="images/dna.jpg" alt="الحمض النووي" class="img-fluid">
-                        </div>
-                        <div class="article-content">
-                            <span class="article-category">الأحياء</span>
-                            <h3 class="article-title">الهندسة الوراثية: الفرص والتحديات</h3>
-                            <p class="article-excerpt">نظرة شاملة على تقنيات الهندسة الوراثية وتطبيقاتها الطبية والزراعية، مع مناقشة الجوانب الأخلاقية والتحديات المستقبلية.</p>
-                            <div class="article-meta">
-                                <span><i class="far fa-calendar"></i> 12 يناير 2024</span>
-                                <span><i class="far fa-clock"></i> 7 دقائق</span>
+                <div class="col-md-4" data-category="engineering">
+                    <div class="card border-0 shadow-sm h-100 article-card">
+                        <div class="card-body">
+                            <span class="badge bg-warning mb-3">الهندسة</span>
+                            <h5 class="fw-bold">محركات السيارات الكهربائية: ثورة في عالم النقل الحديث</h5>
+                            <p class="text-muted">استكشاف تقنيات المحركات الكهربائية ومستقبل النقل المستدام</p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <small class="text-muted"><i class="fas fa-clock me-1"></i>12 دقيقة</small>
+                                <a href="article-electric-motors.html" class="btn btn-outline-primary btn-sm">اقرأ المزيد</a>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Article 3 -->
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="article-card">
-                        <div class="article-image">
-                            <img src="images/science_lab.jpg" alt="مختبر علمي" class="img-fluid">
-                        </div>
-                        <div class="article-content">
-                            <span class="article-category">الكيمياء</span>
-                            <h3 class="article-title">الكيمياء الخضراء: نحو مستقبل مستدام</h3>
-                            <p class="article-excerpt">كيف تساهم الكيمياء الخضراء في حماية البيئة وتحقيق الاستدامة من خلال تطوير عمليات كيميائية صديقة للبيئة.</p>
-                            <div class="article-meta">
-                                <span><i class="far fa-calendar"></i> 10 يناير 2024</span>
-                                <span><i class="far fa-clock"></i> 6 دقائق</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Article 4 -->
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="article-card">
-                        <div class="article-image">
-                            <img src="images/wind-energy.jpg" alt="طاقة الرياح" class="img-fluid">
-                        </div>
-                        <div class="article-content">
-                            <span class="article-category">الطاقة المتجددة</span>
-                            <h3 class="article-title">طاقة الرياح: تقنيات وتطبيقات حديثة</h3>
-                            <p class="article-excerpt">دراسة شاملة لتقنيات توليد الطاقة من الرياح وأحدث التطورات في هذا المجال وتطبيقاتها العملية.</p>
-                            <div class="article-meta">
-                                <span><i class="far fa-calendar"></i> 8 يناير 2024</span>
-                                <span><i class="far fa-clock"></i> 6 دقائق</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Article 5 -->
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="article-card">
-                        <div class="article-image">
-                            <img src="images/solar-energy.jpg" alt="الفيزياء الكمية" class="img-fluid">
-                        </div>
-                        <div class="article-content">
-                            <span class="article-category">الفيزياء</span>
-                            <h3 class="article-title">مقدمة في الفيزياء الكمية</h3>
-                            <p class="article-excerpt">شرح مبسط لمفاهيم الفيزياء الكمية الأساسية وتطبيقاتها في التكنولوجيا الحديثة والحوسبة الكمية.</p>
-                            <div class="article-meta">
-                                <span><i class="far fa-calendar"></i> 5 يناير 2024</span>
-                                <span><i class="far fa-clock"></i> 8 دقائق</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Article 6 -->
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="article-card">
-                        <div class="article-image">
-                            <img src="images/dna.jpg" alt="الطب الجيني" class="img-fluid">
-                        </div>
-                        <div class="article-content">
-                            <span class="article-category">الطب</span>
-                            <h3 class="article-title">الطب الجيني: ثورة في العلاج الطبي</h3>
-                            <p class="article-excerpt">كيف يغير الطب الجيني مستقبل الرعاية الصحية من خلال العلاجات المخصصة والكشف المبكر عن الأمراض.</p>
-                            <div class="article-meta">
-                                <span><i class="far fa-calendar"></i> 3 يناير 2024</span>
-                                <span><i class="far fa-clock"></i> 7 دقائق</span>
+                <div class="col-md-4" data-category="nature">
+                    <div class="card border-0 shadow-sm h-100 article-card">
+                        <div class="card-body">
+                            <span class="badge bg-info mb-3">الطبيعة</span>
+                            <h5 class="fw-bold">ماهية المحيطات: عالم من الأسرار والحياة</h5>
+                            <p class="text-muted">رحلة استكشافية في أعماق المحيطات وأهميتها للحياة على الأرض</p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <small class="text-muted"><i class="fas fa-clock me-1"></i>15 دقيقة</small>
+                                <a href="article-oceans.html" class="btn btn-outline-primary btn-sm">اقرأ المزيد</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Pagination -->
-            <div class="row mt-5">
-                <div class="col-12">
-                    <nav aria-label="Page navigation">
-                        <ul class="pagination justify-content-center">
-                            <li class="page-item disabled">
-                                <a class="page-link" href="#" tabindex="-1">السابق</a>
-                            </li>
-                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">التالي</a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
+            <div class="text-center mt-5">
+                <p class="text-muted">المزيد من المقالات قريباً...</p>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="bg-dark text-white py-5">
+    <footer class="bg-dark text-white py-4">
         <div class="container">
             <div class="row">
-                <div class="col-lg-4 mb-4 mb-lg-0">
-                    <h5 class="fw-bold mb-3">ديوان الانفراد</h5>
-                    <p>منصة علمية عربية شاملة تهدف إلى إثراء المحتوى العلمي العربي.</p>
+                <div class="col-md-4">
+                    <img src="images/logos/icon.PNG" alt="ديوان الانفراد" height="40" class="mb-3">
+                    <p>منصة علمية عربية لإثراء المحتوى العلمي العربي</p>
                 </div>
-                <div class="col-lg-4 mb-4 mb-lg-0">
-                    <h5 class="fw-bold mb-3">روابط سريعة</h5>
+                <div class="col-md-4">
+                    <h5>الوصول السريع</h5>
                     <ul class="list-unstyled">
-                        <li><a href="index.html" class="text-white-50 text-decoration-none">الرئيسية</a></li>
-                        <li><a href="index.html#about" class="text-white-50 text-decoration-none">عن المنصة</a></li>
-                        <li><a href="categories.html" class="text-white-50 text-decoration-none">المجالات العلمية</a></li>
-                        <li><a href="terms-list.html" class="text-white-50 text-decoration-none">المصطلحات</a></li>
-                        <li><a href="articles.html" class="text-white-50 text-decoration-none">المقالات</a></li>
+                        <li><a href="index.html" class="text-white-50">الرئيسية</a></li>
+                        <li><a href="about.html" class="text-white-50">عن المنصة</a></li>
+                        <li><a href="categories.html" class="text-white-50">المجالات العلمية</a></li>
+                        <li><a href="terms-list.html" class="text-white-50">المصطلحات</a></li>
+                        <li><a href="articles.html" class="text-white-50">المقالات</a></li>
                     </ul>
                 </div>
-                <div class="col-lg-4">
-                    <h5 class="fw-bold mb-3">تواصل معنا</h5>
-                    <div class="d-flex gap-3">
-                        <a href="#" class="text-white-50"><i class="fab fa-facebook fa-2x"></i></a>
-                        <a href="#" class="text-white-50"><i class="fab fa-twitter fa-2x"></i></a>
-                        <a href="#" class="text-white-50"><i class="fab fa-linkedin fa-2x"></i></a>
-                    </div>
+                <div class="col-md-4">
+                    <h5>التواصل</h5>
+                    <p class="text-white-50">
+                        <i class="fas fa-phone"></i> +966530151525<br>
+                        <i class="fas fa-envelope"></i> info@infiradengineering.com
+                    </p>
                 </div>
             </div>
-            <hr class="my-4 bg-white">
+            <hr class="bg-white">
             <div class="text-center">
                 <p class="mb-0">&copy; 2024 ديوان الانفراد. جميع الحقوق محفوظة.</p>
             </div>
@@ -249,6 +152,34 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="script.js"></script>
+    <script>
+        // Article search and filter functionality
+        const articleSearch = document.getElementById('articleSearch');
+        const categoryFilter = document.getElementById('categoryFilter');
+        const articlesGrid = document.getElementById('articlesGrid');
+        const articles = articlesGrid.querySelectorAll('[data-category]');
+
+        function filterArticles() {
+            const searchTerm = articleSearch.value.toLowerCase();
+            const selectedCategory = categoryFilter.value;
+
+            articles.forEach(article => {
+                const title = article.querySelector('h5').textContent.toLowerCase();
+                const category = article.dataset.category;
+                
+                const matchesSearch = title.includes(searchTerm);
+                const matchesCategory = selectedCategory === 'all' || category === selectedCategory;
+                
+                if (matchesSearch && matchesCategory) {
+                    article.style.display = 'block';
+                } else {
+                    article.style.display = 'none';
+                }
+            });
+        }
+
+        articleSearch.addEventListener('input', filterArticles);
+        categoryFilter.addEventListener('change', filterArticles);
+    </script>
 </body>
 </html>
-
