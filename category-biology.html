@@ -4,12 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>الأحياء - ديوان الانفراد</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
 </head>
 <body>
     <!-- Header -->
@@ -25,21 +23,11 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav me-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="index.html">الرئيسية</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="about.html">عن المنصة</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="categories.html">المجالات العلمية</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="terms-list.html">المصطلحات</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="articles.html">المقالات</a>
-                        </li>
+                        <li class="nav-item"><a class="nav-link" href="index.html">الرئيسية</a></li>
+                        <li class="nav-item"><a class="nav-link" href="about.html">عن المنصة</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="categories.html">المجالات العلمية</a></li>
+                        <li class="nav-item"><a class="nav-link" href="terms-list.html">المصطلحات</a></li>
+                        <li class="nav-item"><a class="nav-link" href="articles.html">المقالات</a></li>
                     </ul>
                     <div class="d-flex gap-2">
                         <a href="#" class="btn btn-outline-primary">تسجيل الدخول</a>
@@ -50,12 +38,18 @@
         </nav>
     </header>
 
-    <!-- Page Header -->
-    <section class="page-header py-5 bg-primary text-white">
-        <div class="container text-center">
-            <i class="fas fa-dna fa-4x mb-3"></i>
-            <h1 class="display-4 fw-bold">الأحياء</h1>
-            <p class="lead">علم دراسة الكائنات الحية ووظائفها</p>
+    <!-- Category Hero -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-2 text-center">
+                    <i class="fas fa-dna fa-5x text-primary"></i>
+                </div>
+                <div class="col-md-10">
+                    <h1 class="fw-bold mb-3">الأحياء</h1>
+                    <p class="lead">علم يدرس الكائنات الحية ووظائفها</p>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -63,54 +57,15 @@
     <section class="py-5">
         <div class="container">
             <div class="row">
-                <div class="col-lg-8">
-                    <div class="card border-0 shadow-sm mb-4">
-                        <div class="card-body p-4">
-                            <h2 class="fw-bold mb-3">التعريف</h2>
-                            <p class="lead">علم الأحياء هو العلم الذي يدرس الكائنات الحية من حيث بنيتها، وظائفها، نموها، تطورها، توزيعها، وتصنيفها.</p>
-                        </div>
-                    </div>
-
-                    <div class="card border-0 shadow-sm mb-4">
-                        <div class="card-body p-4">
-                            <h2 class="fw-bold mb-3">الأهمية</h2>
-                            <p>علم الأحياء يساعدنا على فهم الحياة بجميع أشكالها، من الخلايا المجهرية إلى النظم البيئية المعقدة. هذا الفهم ضروري للطب، الزراعة، وحماية البيئة.</p>
-                        </div>
-                    </div>
-
-                    <div class="card border-0 shadow-sm mb-4">
-                        <div class="card-body p-4">
-                            <h2 class="fw-bold mb-3">التطبيقات</h2>
-                            <p>تطبيقات علم الأحياء تشمل: الطب، الهندسة الوراثية، الزراعة، التكنولوجيا الحيوية، حماية البيئة، وعلم الأوبئة.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4">
-                    <div class="card border-0 shadow-sm mb-4">
-                        <div class="card-body">
-                            <h5 class="fw-bold mb-3">إحصائيات المجال</h5>
-                            <div class="d-flex justify-content-between mb-2">
-                                <span>عدد المصطلحات</span>
-                                <strong>150+</strong>
-                            </div>
-                            <div class="d-flex justify-content-between mb-2">
-                                <span>عدد المقالات</span>
-                                <strong>25+</strong>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                <span>المساهمون</span>
-                                <strong>10+</strong>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card border-0 shadow-sm">
-                        <div class="card-body">
-                            <h5 class="fw-bold mb-3">مجالات ذات صلة</h5>
-                            <a href="categories.html" class="btn btn-outline-primary btn-sm w-100 mb-2">جميع المجالات</a>
-                        </div>
-                    </div>
+                <div class="col-md-12">
+                    <h2 class="fw-bold mb-4">التعريف</h2>
+                    <p class="lead">علم الأحياء هو العلم الذي يدرس الكائنات الحية من حيث بنيتها ووظائفها ونموها وتطورها وتوزيعها وتصنيفها.</p>
+                    
+                    <h2 class="fw-bold mb-4 mt-5">الأهمية</h2>
+                    <p class="lead">يساعد علم الأحياء في فهم الحياة وتطوير الطب والزراعة والحفاظ على البيئة.</p>
+                    
+                    <h2 class="fw-bold mb-4 mt-5">التطبيقات</h2>
+                    <p class="lead">تطبيقات علم الأحياء تشمل: الطب، الزراعة، التكنولوجيا الحيوية، علم الوراثة، والحفاظ على البيئة.</p>
                 </div>
             </div>
         </div>
@@ -120,11 +75,19 @@
     <section class="py-5 bg-light">
         <div class="container">
             <h2 class="fw-bold mb-4">مصطلحات في الأحياء</h2>
-            <div class="row g-4">
-                <div class="col-md-12">
-                    <p class="text-muted">المصطلحات المتعلقة بهذا المجال ستظهر هنا قريباً...</p>
-                    <a href="terms-list.html" class="btn btn-primary">تصفح جميع المصطلحات</a>
+            <div class="row">
+
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold">الخلية</h5>
+                            <span class="badge bg-primary mb-2">الأحياء</span>
+                            <p class="card-text">الوحدة الأساسية للحياة في جميع الكائنات الحية</p>
+                            <a href="term-cell.html" class="btn btn-outline-primary">اقرأ المزيد</a>
+                        </div>
+                    </div>
                 </div>
+
             </div>
         </div>
     </section>
@@ -133,11 +96,12 @@
     <section class="py-5">
         <div class="container">
             <h2 class="fw-bold mb-4">مقالات في الأحياء</h2>
-            <div class="row g-4">
-                <div class="col-md-12">
-                    <p class="text-muted">المقالات المتعلقة بهذا المجال ستظهر هنا قريباً...</p>
-                    <a href="articles.html" class="btn btn-primary">تصفح جميع المقالات</a>
+            <div class="row">
+
+                <div class="col-12">
+                    <p class="text-muted text-center">لا توجد مقالات مرتبطة بهذا المجال حالياً</p>
                 </div>
+
             </div>
         </div>
     </section>
