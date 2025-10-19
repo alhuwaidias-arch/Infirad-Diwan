@@ -858,3 +858,223 @@ html {
     gap: 0.5rem;
 }
 
+
+
+/* ===================================
+   Modern Modal Styles
+   =================================== */
+
+/* Modal backdrop with blur effect */
+.modal-backdrop {
+    backdrop-filter: blur(5px);
+    background-color: rgba(0, 0, 0, 0.6) !important;
+}
+
+/* Modal dialog */
+.modal-dialog {
+    margin: 2rem auto;
+}
+
+/* Modal content - modern design */
+.modal-content {
+    border: none !important;
+    border-radius: 20px !important;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3) !important;
+    overflow: hidden;
+    animation: modalFadeIn 0.3s ease-out;
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Modal header - modern design */
+.modal-header {
+    border-bottom: none !important;
+    padding: 2rem 2rem 1rem 2rem !important;
+    background: linear-gradient(135deg, #0d47a1 0%, #1976d2 100%) !important;
+    position: relative;
+}
+
+/* Modal title */
+.modal-title {
+    font-size: 1.5rem !important;
+    font-weight: 700 !important;
+    color: white !important;
+    display: flex;
+    align-items: center;
+    margin: 0 !important;
+}
+
+.modal-title i {
+    font-size: 1.3rem;
+    margin-left: 0.5rem;
+}
+
+/* Close button - positioned in top right corner */
+.modal-header .btn-close {
+    position: absolute !important;
+    top: 1rem !important;
+    right: 1rem !important;
+    margin: 0 !important;
+    padding: 0.5rem !important;
+    width: 2.5rem !important;
+    height: 2.5rem !important;
+    border-radius: 50% !important;
+    background-color: rgba(255, 255, 255, 0.2) !important;
+    opacity: 1 !important;
+    transition: all 0.3s ease !important;
+}
+
+.modal-header .btn-close:hover {
+    background-color: rgba(255, 255, 255, 0.3) !important;
+    transform: rotate(90deg) !important;
+}
+
+.modal-header .btn-close:focus {
+    box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.3) !important;
+}
+
+/* Modal body - modern spacing */
+.modal-body {
+    padding: 2rem !important;
+    background-color: #ffffff;
+}
+
+.modal-body p.text-muted {
+    font-size: 1rem;
+    color: #666 !important;
+    margin-bottom: 1.5rem;
+}
+
+/* Form elements in modal */
+.modal-body .form-label {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.modal-body .form-control,
+.modal-body .form-select {
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.modal-body .form-control:focus,
+.modal-body .form-select:focus {
+    border-color: #2196f3;
+    box-shadow: 0 0 0 0.2rem rgba(33, 150, 243, 0.15);
+}
+
+.modal-body .form-control::placeholder {
+    color: #aaa;
+}
+
+/* Submit button in modal */
+.modal-body .btn-primary {
+    background: linear-gradient(135deg, #0d47a1 0%, #1976d2 100%);
+    border: none;
+    border-radius: 10px;
+    padding: 0.75rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(13, 71, 161, 0.3);
+}
+
+.modal-body .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(13, 71, 161, 0.4);
+}
+
+.modal-body .btn-primary:active {
+    transform: translateY(0);
+}
+
+/* File input styling */
+.modal-body input[type="file"] {
+    border: 2px dashed #e0e0e0;
+    border-radius: 10px;
+    padding: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.modal-body input[type="file"]:hover {
+    border-color: #2196f3;
+    background-color: #f5f5f5;
+}
+
+/* Small text in modal */
+.modal-body small {
+    color: #999;
+    font-size: 0.85rem;
+}
+
+/* Required field indicator */
+.modal-body .text-danger {
+    color: #f44336 !important;
+    font-weight: 700;
+}
+
+/* Loading state */
+.modal-body .btn-primary:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .modal-dialog {
+        margin: 1rem;
+    }
+    
+    .modal-header {
+        padding: 1.5rem 1.5rem 1rem 1.5rem !important;
+    }
+    
+    .modal-body {
+        padding: 1.5rem !important;
+    }
+    
+    .modal-title {
+        font-size: 1.25rem !important;
+    }
+    
+    .modal-header .btn-close {
+        top: 0.75rem !important;
+        right: 0.75rem !important;
+        width: 2rem !important;
+        height: 2rem !important;
+    }
+}
+
+/* Success/Error messages in modal */
+.modal-body .alert {
+    border-radius: 10px;
+    border: none;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.modal-body .alert-success {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+}
+
+.modal-body .alert-danger {
+    background-color: #ffebee;
+    color: #c62828;
+}
+
