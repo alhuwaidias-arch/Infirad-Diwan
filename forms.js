@@ -1,5 +1,6 @@
 // Forms Handler for Infirad Diwan Platform
 // Handles newsletter subscription and knowledge sharing forms
+// With Google Drive file upload support
 
 const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzNYIrwQ7f_eI14HlYfOZ-xmVNRmc1i5gO-oVkKYftwelT8pNZl7FmaUpQaTaBR7TrqhQ/exec';
 
@@ -25,7 +26,7 @@ document.getElementById('newsletterForm')?.addEventListener('submit', async func
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                formType: 'newsletter',
+                type: 'newsletter',
                 name: name,
                 email: email
             })
@@ -52,7 +53,7 @@ document.getElementById('newsletterForm')?.addEventListener('submit', async func
     }
 });
 
-// Knowledge Sharing Form Handler
+// Knowledge Sharing Form Handler with File Upload
 document.getElementById('knowledgeForm')?.addEventListener('submit', async function(e) {
     e.preventDefault();
     
@@ -61,7 +62,7 @@ document.getElementById('knowledgeForm')?.addEventListener('submit', async funct
     const name = document.getElementById('knowledgeName').value.trim();
     const email = document.getElementById('knowledgeEmail').value.trim();
     const field = document.getElementById('knowledgeField').value;
-    const type = document.getElementById('knowledgeType').value;
+    const contributionType = document.getElementById('knowledgeType').value;
     const notes = document.getElementById('knowledgeNotes').value.trim();
     const fileInput = document.getElementById('knowledgeFile');
     
@@ -82,16 +83,29 @@ document.getElementById('knowledgeForm')?.addEventListener('submit', async funct
     messageDiv.classList.add('d-none');
     
     try {
-        let fileUrl = '';
+        let fileData = null;
         
-        // If file is selected, upload it first
+        // If file is selected, convert to base64
         if (fileInput.files.length > 0) {
             const file = fileInput.files[0];
             showMessage(messageDiv, 'info', 'جاري رفع الملف...');
             
-            // For now, we'll just note that a file was attached
-            // In a production environment, you'd upload to cloud storage
-            fileUrl = `ملف مرفق: ${file.name} (${(file.size / 1024).toFixed(2)} KB)`;
+            // Convert file to base64
+            fileData = await fileToBase64(file);
+        }
+        
+        const requestData = {
+            type: 'knowledge',
+            name: name,
+            email: email,
+            field: field,
+            contributionType: contributionType,
+            notes: notes
+        };
+        
+        // Add file data if exists
+        if (fileData) {
+            requestData.file = fileData;
         }
         
         const response = await fetch(GOOGLE_SCRIPT_URL, {
@@ -100,15 +114,7 @@ document.getElementById('knowledgeForm')?.addEventListener('submit', async funct
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({
-                formType: 'knowledge',
-                name: name,
-                email: email,
-                field: field,
-                type: type,
-                fileUrl: fileUrl,
-                notes: notes
-            })
+            body: JSON.stringify(requestData)
         });
         
         // Since we're using no-cors, we can't read the response
@@ -131,6 +137,31 @@ document.getElementById('knowledgeForm')?.addEventListener('submit', async funct
         submitBtn.innerHTML = '<i class="fas fa-paper-plane me-2"></i>إرسال المشاركة';
     }
 });
+
+/**
+ * Convert file to base64 for upload to Google Drive
+ */
+function fileToBase64(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        
+        reader.onload = function(e) {
+            const base64String = e.target.result.split(',')[1]; // Remove data:*/*;base64, prefix
+            resolve({
+                name: file.name,
+                mimeType: file.type,
+                data: base64String,
+                size: file.size
+            });
+        };
+        
+        reader.onerror = function(error) {
+            reject(error);
+        };
+        
+        reader.readAsDataURL(file);
+    });
+}
 
 // Helper function to show messages
 function showMessage(element, type, message) {
