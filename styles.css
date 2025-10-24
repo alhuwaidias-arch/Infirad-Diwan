@@ -1,8 +1,8 @@
 :root {
     --primary-color: #0d47a1;
-    --secondary-color: #1976d2;
-    --accent-color: #2196f3;
-    --light-color: #e3f2fd;
+    --secondary-color: #0a2351;
+    --accent-color: #0d47a1;
+    --light-color: #0d47a1;
     --dark-color: #0a2351;
     --text-color: #333;
     --light-text-color: #666;
@@ -193,13 +193,13 @@ html {
     font-weight: 500;
     border-radius: 20px;
     background-color: var(--light-color);
-    color: var(--primary-color);
+    color: var(--white-color);
     cursor: pointer;
     transition: var(--transition);
 }
 
 .category-tags .badge:hover {
-    background-color: var(--primary-color);
+    background-color: var(--dark-color);
     color: var(--white-color);
     transform: translateY(-2px);
 }
@@ -378,7 +378,7 @@ html {
 
 .about-feature-icon {
     font-size: 1.5rem;
-    color: var(--primary-color);
+    color: var(--white-color);
     width: 40px;
     height: 40px;
     display: flex;
