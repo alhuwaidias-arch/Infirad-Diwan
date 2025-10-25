@@ -1,8 +1,8 @@
 :root {
     --primary-color: #0d47a1;
-    --secondary-color: #0a2351;
-    --accent-color: #0d47a1;
-    --light-color: #0d47a1;
+    --secondary-color: #1976d2;
+    --accent-color: #2196f3;
+    --light-color: #e3f2fd;
     --dark-color: #0a2351;
     --text-color: #333;
     --light-text-color: #666;
@@ -11,10 +11,6 @@
     --border-color: #e0e0e0;
     --shadow-color: rgba(0, 0, 0, 0.1);
     --transition: all 0.3s ease;
-    
-    /* Override Bootstrap primary color */
-    --bs-primary: #0a2351;
-    --bs-primary-rgb: 10, 35, 81;
 }
 
 * {
@@ -197,13 +193,13 @@ html {
     font-weight: 500;
     border-radius: 20px;
     background-color: var(--light-color);
-    color: var(--white-color);
+    color: var(--primary-color);
     cursor: pointer;
     transition: var(--transition);
 }
 
 .category-tags .badge:hover {
-    background-color: var(--dark-color);
+    background-color: var(--primary-color);
     color: var(--white-color);
     transform: translateY(-2px);
 }
@@ -382,7 +378,7 @@ html {
 
 .about-feature-icon {
     font-size: 1.5rem;
-    color: var(--white-color);
+    color: var(--primary-color);
     width: 40px;
     height: 40px;
     display: flex;
@@ -903,7 +899,7 @@ html {
 .modal-header {
     border-bottom: none !important;
     padding: 2rem 2rem 1rem 2rem !important;
-    background: linear-gradient(135deg, #0a2351 0%, #0d47a1 100%) !important;
+    background: linear-gradient(135deg, #0d47a1 0%, #1976d2 100%) !important;
     position: relative;
 }
 
@@ -977,7 +973,7 @@ html {
 
 .modal-body .form-control:focus,
 .modal-body .form-select:focus {
-    border-color: #0d47a1;
+    border-color: #2196f3;
     box-shadow: 0 0 0 0.2rem rgba(33, 150, 243, 0.15);
 }
 
@@ -987,7 +983,7 @@ html {
 
 /* Submit button in modal */
 .modal-body .btn-primary {
-    background: linear-gradient(135deg, #0a2351 0%, #0d47a1 100%);
+    background: linear-gradient(135deg, #0d47a1 0%, #1976d2 100%);
     border: none;
     border-radius: 10px;
     padding: 0.75rem 2rem;
@@ -1016,7 +1012,7 @@ html {
 }
 
 .modal-body input[type="file"]:hover {
-    border-color: #0d47a1;
+    border-color: #2196f3;
     background-color: #f5f5f5;
 }
 
@@ -1082,32 +1078,3 @@ html {
     color: #c62828;
 }
 
-
-/* Override Bootstrap primary color classes */
-.bg-primary {
-    background-color: #0a2351 !important;
-}
-
-.text-primary {
-    color: #0d47a1 !important;
-}
-
-.btn-primary {
-    background-color: #0a2351 !important;
-    border-color: #0a2351 !important;
-}
-
-.btn-primary:hover {
-    background-color: #0d47a1 !important;
-    border-color: #0d47a1 !important;
-}
-
-.btn-outline-primary {
-    color: #0d47a1 !important;
-    border-color: #0d47a1 !important;
-}
-
-.btn-outline-primary:hover {
-    background-color: #0d47a1 !important;
-    border-color: #0d47a1 !important;
-}
