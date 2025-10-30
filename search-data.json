@@ -1,0 +1,115 @@
+{
+  "terms": [
+    {
+      "title": "الجاذبية",
+      "englishTitle": "Gravity",
+      "category": "الفيزياء",
+      "categorySlug": "physics",
+      "url": "term-gravity.html",
+      "definition": "قوة طبيعية أساسية تجذب أي جسمين لهما كتلة أو طاقة",
+      "keywords": ["جاذبية", "gravity", "قوة", "كتلة", "فيزياء"]
+    },
+    {
+      "title": "الكثافة",
+      "englishTitle": "Density",
+      "category": "الفيزياء",
+      "categorySlug": "physics",
+      "url": "term-density.html",
+      "definition": "خاصية فيزيائية للمادة تعبر عن مقدار الكتلة الموجودة في وحدة حجم معينة",
+      "keywords": ["كثافة", "density", "كتلة", "حجم", "فيزياء"]
+    },
+    {
+      "title": "الرقم الهيدروجيني",
+      "englishTitle": "pH",
+      "category": "الكيمياء",
+      "categorySlug": "chemistry",
+      "url": "term-ph.html",
+      "definition": "مقياس لوغاريتمي يُستخدم لتحديد درجة حموضة أو قلوية محلول مائي",
+      "keywords": ["رقم هيدروجيني", "ph", "حموضة", "قلوية", "كيمياء"]
+    },
+    {
+      "title": "البروتونات",
+      "englishTitle": "Protons",
+      "category": "الكيمياء",
+      "categorySlug": "chemistry",
+      "url": "term-protons.html",
+      "definition": "جسيم دون ذري يحمل شحنة كهربائية موجبة داخل نواة الذرة",
+      "keywords": ["بروتونات", "protons", "ذرة", "نواة", "كيمياء"]
+    },
+    {
+      "title": "الحمض النووي",
+      "englishTitle": "DNA",
+      "category": "الأحياء",
+      "categorySlug": "biology",
+      "url": "term-dna.html",
+      "definition": "جزيء معقد يحمل التعليمات الجينية اللازمة لنمو وتطور الكائنات الحية",
+      "keywords": ["حمض نووي", "dna", "جينات", "وراثة", "أحياء"]
+    },
+    {
+      "title": "البناء الضوئي",
+      "englishTitle": "Photosynthesis",
+      "category": "الأحياء",
+      "categorySlug": "biology",
+      "url": "term-photosynthesis.html",
+      "definition": "عملية حيوية كيميائية تحول الطاقة الضوئية إلى طاقة كيميائية",
+      "keywords": ["بناء ضوئي", "photosynthesis", "نباتات", "طاقة", "أحياء"]
+    },
+    {
+      "title": "الطاقة الشمسية",
+      "englishTitle": "Solar Energy",
+      "category": "الطاقة",
+      "categorySlug": "energy",
+      "url": "term-solar-energy.html",
+      "definition": "الإشعاع الضوئي والحراري المنبعث من الشمس",
+      "keywords": ["طاقة شمسية", "solar", "شمس", "متجددة", "طاقة"]
+    },
+    {
+      "title": "الطاقة النووية",
+      "englishTitle": "Nuclear Energy",
+      "category": "الطاقة",
+      "categorySlug": "energy",
+      "url": "term-nuclear-energy.html",
+      "definition": "الطاقة المنبعثة من نواة الذرة عبر الانشطار أو الاندماج النووي",
+      "keywords": ["طاقة نووية", "nuclear", "ذرة", "انشطار", "طاقة"]
+    },
+    {
+      "title": "الصحراء",
+      "englishTitle": "Desert",
+      "category": "الطبيعة",
+      "categorySlug": "nature",
+      "url": "term-desert.html",
+      "definition": "منطقة قاحلة تتلقى كمية قليلة جداً من الأمطار",
+      "keywords": ["صحراء", "desert", "قاحلة", "جفاف", "طبيعة"]
+    }
+  ],
+  "articles": [
+    {
+      "title": "الطاقة المتجددة: طريق الإنسانية نحو الاستدامة",
+      "category": "الطاقة",
+      "categorySlug": "energy",
+      "url": "article-renewable-energy.html",
+      "summary": "تشكل الطاقة المتجددة تحولاً جوهرياً في إدارة موارد الطاقة عالمياً",
+      "readingTime": "15 دقيقة",
+      "keywords": ["طاقة متجددة", "renewable", "استدامة", "بيئة", "طاقة"]
+    },
+    {
+      "title": "محركات السيارات الكهربائية: ثورة في عالم النقل الحديث",
+      "category": "الهندسة",
+      "categorySlug": "engineering",
+      "url": "article-electric-motors.html",
+      "summary": "يشهد قطاع النقل العالمي تحولاً جذرياً نحو الكهرباء كبديل عن الحرارة",
+      "readingTime": "12 دقيقة",
+      "keywords": ["سيارات كهربائية", "electric", "محركات", "نقل", "هندسة"]
+    },
+    {
+      "title": "ماهية المحيطات",
+      "category": "الطبيعة",
+      "categorySlug": "nature",
+      "url": "article-oceans.html",
+      "summary": "المحيطات هي المسطحات المائية الشاسعة التي تغطي أكثر من 70% من سطح الكرة الأرضية",
+      "readingTime": "18 دقيقة",
+      "keywords": ["محيطات", "oceans", "بحار", "مياه", "طبيعة"]
+    }
+  ]
+}
+
