@@ -7,7 +7,7 @@
       "categorySlug": "physics",
       "url": "term-gravity.html",
       "definition": "قوة طبيعية أساسية تجذب أي جسمين لهما كتلة أو طاقة",
-      "keywords": ["جاذبية", "gravity", "قوة", "كتلة", "فيزياء"]
+      "keywords": ["جاذبية", "gravity", "قوة", "كتلة", "فيزياء", "نيوتن"]
     },
     {
       "title": "الكثافة",
@@ -16,7 +16,16 @@
       "categorySlug": "physics",
       "url": "term-density.html",
       "definition": "خاصية فيزيائية للمادة تعبر عن مقدار الكتلة الموجودة في وحدة حجم معينة",
-      "keywords": ["كثافة", "density", "كتلة", "حجم", "فيزياء"]
+      "keywords": ["كثافة", "density", "كتلة", "حجم", "فيزياء", "مادة"]
+    },
+    {
+      "title": "الحرارة",
+      "englishTitle": "Heat",
+      "category": "الفيزياء",
+      "categorySlug": "physics",
+      "url": "term-heat.html",
+      "definition": "شكل من أشكال الطاقة التي تنتقل من جسم إلى آخر بسبب اختلاف درجات الحرارة",
+      "keywords": ["حرارة", "heat", "طاقة", "درجة حرارة", "فيزياء", "انتقال"]
     },
     {
       "title": "الرقم الهيدروجيني",
@@ -25,16 +34,25 @@
       "categorySlug": "chemistry",
       "url": "term-ph.html",
       "definition": "مقياس لوغاريتمي يُستخدم لتحديد درجة حموضة أو قلوية محلول مائي",
-      "keywords": ["رقم هيدروجيني", "ph", "حموضة", "قلوية", "كيمياء"]
+      "keywords": ["رقم هيدروجيني", "ph", "حموضة", "قلوية", "كيمياء", "محلول"]
     },
     {
       "title": "البروتونات",
       "englishTitle": "Protons",
       "category": "الكيمياء",
       "categorySlug": "chemistry",
-      "url": "term-protons.html",
+      "url": "term-proton.html",
       "definition": "جسيم دون ذري يحمل شحنة كهربائية موجبة داخل نواة الذرة",
-      "keywords": ["بروتونات", "protons", "ذرة", "نواة", "كيمياء"]
+      "keywords": ["بروتونات", "protons", "ذرة", "نواة", "كيمياء", "شحنة"]
+    },
+    {
+      "title": "الذرة",
+      "englishTitle": "Atom",
+      "category": "الكيمياء",
+      "categorySlug": "chemistry",
+      "url": "term-atom.html",
+      "definition": "أصغر وحدة في المادة تحتفظ بخصائص العنصر الكيميائي",
+      "keywords": ["ذرة", "atom", "عنصر", "مادة", "كيمياء", "جزيء"]
     },
     {
       "title": "الحمض النووي",
@@ -43,7 +61,7 @@
       "categorySlug": "biology",
       "url": "term-dna.html",
       "definition": "جزيء معقد يحمل التعليمات الجينية اللازمة لنمو وتطور الكائنات الحية",
-      "keywords": ["حمض نووي", "dna", "جينات", "وراثة", "أحياء"]
+      "keywords": ["حمض نووي", "dna", "جينات", "وراثة", "أحياء", "كروموسومات"]
     },
     {
       "title": "البناء الضوئي",
@@ -52,7 +70,16 @@
       "categorySlug": "biology",
       "url": "term-photosynthesis.html",
       "definition": "عملية حيوية كيميائية تحول الطاقة الضوئية إلى طاقة كيميائية",
-      "keywords": ["بناء ضوئي", "photosynthesis", "نباتات", "طاقة", "أحياء"]
+      "keywords": ["بناء ضوئي", "photosynthesis", "نباتات", "طاقة", "أحياء", "كلوروفيل"]
+    },
+    {
+      "title": "الخلية",
+      "englishTitle": "Cell",
+      "category": "الأحياء",
+      "categorySlug": "biology",
+      "url": "term-cell.html",
+      "definition": "الوحدة الأساسية للحياة في جميع الكائنات الحية",
+      "keywords": ["خلية", "cell", "حياة", "كائنات", "أحياء", "نواة"]
     },
     {
       "title": "الطاقة الشمسية",
@@ -61,7 +88,7 @@
       "categorySlug": "energy",
       "url": "term-solar-energy.html",
       "definition": "الإشعاع الضوئي والحراري المنبعث من الشمس",
-      "keywords": ["طاقة شمسية", "solar", "شمس", "متجددة", "طاقة"]
+      "keywords": ["طاقة شمسية", "solar", "شمس", "متجددة", "طاقة", "ألواح"]
     },
     {
       "title": "الطاقة النووية",
@@ -70,7 +97,25 @@
       "categorySlug": "energy",
       "url": "term-nuclear-energy.html",
       "definition": "الطاقة المنبعثة من نواة الذرة عبر الانشطار أو الاندماج النووي",
-      "keywords": ["طاقة نووية", "nuclear", "ذرة", "انشطار", "طاقة"]
+      "keywords": ["طاقة نووية", "nuclear", "ذرة", "انشطار", "طاقة", "مفاعل"]
+    },
+    {
+      "title": "الهندسة الكيميائية",
+      "englishTitle": "Chemical Engineering",
+      "category": "الهندسة",
+      "categorySlug": "engineering",
+      "url": "term-chemical-engineering.html",
+      "definition": "فرع من الهندسة يطبق مبادئ الكيمياء والفيزياء لتصميم وتشغيل العمليات الصناعية",
+      "keywords": ["هندسة كيميائية", "chemical engineering", "صناعة", "عمليات", "هندسة", "كيمياء"]
+    },
+    {
+      "title": "الهندسة الميكانيكية",
+      "englishTitle": "Mechanical Engineering",
+      "category": "الهندسة",
+      "categorySlug": "engineering",
+      "url": "term-mechanical-engineering.html",
+      "definition": "فرع من الهندسة يتعامل مع تصميم وتصنيع وصيانة الأنظمة الميكانيكية",
+      "keywords": ["هندسة ميكانيكية", "mechanical engineering", "آلات", "محركات", "هندسة", "تصميم"]
     },
     {
       "title": "الصحراء",
@@ -79,7 +124,7 @@
       "categorySlug": "nature",
       "url": "term-desert.html",
       "definition": "منطقة قاحلة تتلقى كمية قليلة جداً من الأمطار",
-      "keywords": ["صحراء", "desert", "قاحلة", "جفاف", "طبيعة"]
+      "keywords": ["صحراء", "desert", "قاحلة", "جفاف", "طبيعة", "رمال"]
     }
   ],
   "articles": [
@@ -90,7 +135,7 @@
       "url": "article-renewable-energy.html",
       "summary": "تشكل الطاقة المتجددة تحولاً جوهرياً في إدارة موارد الطاقة عالمياً",
       "readingTime": "15 دقيقة",
-      "keywords": ["طاقة متجددة", "renewable", "استدامة", "بيئة", "طاقة"]
+      "keywords": ["طاقة متجددة", "renewable", "استدامة", "بيئة", "طاقة", "شمسية", "رياح"]
     },
     {
       "title": "محركات السيارات الكهربائية: ثورة في عالم النقل الحديث",
@@ -99,7 +144,7 @@
       "url": "article-electric-motors.html",
       "summary": "يشهد قطاع النقل العالمي تحولاً جذرياً نحو الكهرباء كبديل عن الحرارة",
       "readingTime": "12 دقيقة",
-      "keywords": ["سيارات كهربائية", "electric", "محركات", "نقل", "هندسة"]
+      "keywords": ["سيارات كهربائية", "electric", "محركات", "نقل", "هندسة", "بطاريات"]
     },
     {
       "title": "ماهية المحيطات",
@@ -108,7 +153,7 @@
       "url": "article-oceans.html",
       "summary": "المحيطات هي المسطحات المائية الشاسعة التي تغطي أكثر من 70% من سطح الكرة الأرضية",
       "readingTime": "18 دقيقة",
-      "keywords": ["محيطات", "oceans", "بحار", "مياه", "طبيعة"]
+      "keywords": ["محيطات", "oceans", "بحار", "مياه", "طبيعة", "بيئة"]
     }
   ]
 }
