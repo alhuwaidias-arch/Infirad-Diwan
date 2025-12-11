@@ -1,0 +1,55 @@
+services:
+  - type: web
+    name: diwan-maarifa-backend
+    env: node
+    region: oregon
+    plan: free
+    buildCommand: cd backend && npm install
+    startCommand: cd backend && npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000
+      - key: DB_HOST
+        value: db.zfqljfvxmvbnhbrqlwju.supabase.co
+      - key: DB_PORT
+        value: 5432
+      - key: DB_NAME
+        value: postgres
+      - key: DB_USER
+        value: postgres
+      - key: DB_PASSWORD
+        sync: false
+      - key: DB_MAX_CONNECTIONS
+        value: 20
+      - key: DB_IDLE_TIMEOUT
+        value: 30000
+      - key: DB_CONNECTION_TIMEOUT
+        value: 10000
+      - key: JWT_SECRET
+        sync: false
+      - key: JWT_EXPIRES_IN
+        value: 24h
+      - key: JWT_REFRESH_EXPIRES_IN
+        value: 7d
+      - key: CORS_ORIGIN
+        value: "*"
+      - key: FRONTEND_URL
+        value: https://alhuwaidias-arch.github.io/Diwan-Al-Maarifa
+      - key: RATE_LIMIT_WINDOW_MS
+        value: 900000
+      - key: RATE_LIMIT_MAX_REQUESTS
+        value: 100
+      - key: BCRYPT_ROUNDS
+        value: 10
+      - key: SESSION_SECRET
+        sync: false
+      - key: ENABLE_REGISTRATION
+        value: true
+      - key: ENABLE_COMMENTS
+        value: false
+      - key: ENABLE_ANALYTICS
+        value: true
+      - key: ENABLE_EMAIL_NOTIFICATIONS
+        value: false
