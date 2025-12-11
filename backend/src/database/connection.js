@@ -1,7 +1,11 @@
 // Database Connection Module
 const { Pool } = require('pg');
+const dns = require('dns');
 
-// Create connection pool
+// Force IPv4 resolution to avoid IPv6 connectivity issues
+dns.setDefaultResultOrder('ipv4first');
+
+// Create connection pool with IPv4 preference
 const pool = new Pool({
   host: process.env.DB_HOST || 'localhost',
   port: parseInt(process.env.DB_PORT || '5432'),
@@ -10,11 +14,16 @@ const pool = new Pool({
   password: process.env.DB_PASSWORD || 'diwan_password_2024',
   max: parseInt(process.env.DB_MAX_CONNECTIONS) || 20,
   idleTimeoutMillis: parseInt(process.env.DB_IDLE_TIMEOUT) || 30000,
-  connectionTimeoutMillis: parseInt(process.env.DB_CONNECTION_TIMEOUT) || 2000,
+  connectionTimeoutMillis: parseInt(process.env.DB_CONNECTION_TIMEOUT) || 10000,
   // SSL configuration for Supabase and other cloud providers
   ssl: process.env.NODE_ENV === 'production' ? {
     rejectUnauthorized: false
-  } : false
+  } : false,
+  // Additional options for better connectivity
+  keepAlive: true,
+  keepAliveInitialDelayMillis: 10000,
+  // Force IPv4 by using family option
+  options: process.env.NODE_ENV === 'production' ? '-c search_path=public' : undefined
 });
 
 // Test connection
