@@ -8,9 +8,13 @@ const pool = new Pool({
   database: process.env.DB_NAME || 'diwan_maarifa',
   user: process.env.DB_USER || 'diwan_user',
   password: process.env.DB_PASSWORD || 'diwan_password_2024',
-  max: 20,
-  idleTimeoutMillis: 30000,
-  connectionTimeoutMillis: 2000,
+  max: parseInt(process.env.DB_MAX_CONNECTIONS) || 20,
+  idleTimeoutMillis: parseInt(process.env.DB_IDLE_TIMEOUT) || 30000,
+  connectionTimeoutMillis: parseInt(process.env.DB_CONNECTION_TIMEOUT) || 2000,
+  // SSL configuration for Supabase and other cloud providers
+  ssl: process.env.NODE_ENV === 'production' ? {
+    rejectUnauthorized: false
+  } : false
 });
 
 // Test connection
