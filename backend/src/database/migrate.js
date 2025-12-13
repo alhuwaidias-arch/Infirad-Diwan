@@ -17,25 +17,42 @@ async function runMigrations() {
   });
 
   try {
-    // Check if tables exist
+    // Check if tables exist AND have correct structure
     const checkQuery = `
       SELECT EXISTS (
-        SELECT FROM information_schema.tables 
+        SELECT FROM information_schema.columns 
         WHERE table_schema = 'public' 
         AND table_name = 'users'
-      );
+        AND column_name = 'user_id'
+      ) as users_valid,
+      EXISTS (
+        SELECT FROM information_schema.columns 
+        WHERE table_schema = 'public' 
+        AND table_name = 'content_submissions'
+        AND column_name = 'submission_id'
+      ) as content_valid;
     `;
     
     const result = await pool.query(checkQuery);
-    const tablesExist = result.rows[0].exists;
+    const usersValid = result.rows[0].users_valid;
+    const contentValid = result.rows[0].content_valid;
+    
+    // Check if FORCE_MIGRATION environment variable is set
+    const forceMigration = process.env.FORCE_MIGRATION === 'true';
 
-    if (tablesExist) {
+    if (usersValid && contentValid && !forceMigration) {
       console.log('✅ Database schema already exists. Skipping migration.');
+      console.log('   (Set FORCE_MIGRATION=true to force re-run)');
       await pool.end();
       return;
     }
 
-    console.log('📦 Database schema not found. Running migration...');
+    if (forceMigration) {
+      console.log('🔄 FORCE_MIGRATION enabled. Dropping existing tables...');
+      await dropAllTables(pool);
+    }
+
+    console.log('📦 Database schema not found or incomplete. Running migration...');
 
     // Read the schema file
     const schemaPath = path.join(__dirname, '../../database/schema/01_create_tables.sql');
@@ -43,6 +60,7 @@ async function runMigrations() {
     // Check if schema file exists in the expected location
     let schemaSQL;
     if (fs.existsSync(schemaPath)) {
+      console.log('📄 Using schema file from:', schemaPath);
       schemaSQL = fs.readFileSync(schemaPath, 'utf8');
     } else {
       // If file doesn't exist, use embedded schema
@@ -57,11 +75,44 @@ async function runMigrations() {
     console.log('✅ All tables and indexes created');
     console.log('✅ Default categories inserted');
 
+    // Verify tables were created
+    const verifyQuery = `
+      SELECT table_name 
+      FROM information_schema.tables 
+      WHERE table_schema = 'public' 
+      ORDER BY table_name;
+    `;
+    const tables = await pool.query(verifyQuery);
+    console.log('📋 Created tables:', tables.rows.map(r => r.table_name).join(', '));
+
     await pool.end();
   } catch (error) {
     console.error('❌ Migration failed:', error.message);
+    console.error('❌ Error details:', error);
     await pool.end();
     throw error;
+  }
+}
+
+// Drop all tables (for force migration)
+async function dropAllTables(pool) {
+  try {
+    const dropSQL = `
+      DROP TABLE IF EXISTS user_sessions CASCADE;
+      DROP TABLE IF EXISTS comments CASCADE;
+      DROP TABLE IF EXISTS analytics_events CASCADE;
+      DROP TABLE IF EXISTS notifications CASCADE;
+      DROP TABLE IF EXISTS workflow_history CASCADE;
+      DROP TABLE IF EXISTS published_content CASCADE;
+      DROP TABLE IF EXISTS content_submissions CASCADE;
+      DROP TABLE IF EXISTS categories CASCADE;
+      DROP TABLE IF EXISTS users CASCADE;
+      DROP FUNCTION IF EXISTS update_updated_at_column CASCADE;
+    `;
+    await pool.query(dropSQL);
+    console.log('✅ Existing tables dropped');
+  } catch (error) {
+    console.error('⚠️  Error dropping tables:', error.message);
   }
 }
 
