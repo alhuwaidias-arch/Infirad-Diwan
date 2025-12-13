@@ -5,8 +5,18 @@ const dns = require('dns');
 // Force IPv4 resolution to avoid IPv6 connectivity issues
 dns.setDefaultResultOrder('ipv4first');
 
+// Validate DATABASE_URL
+if (!process.env.DATABASE_URL) {
+  console.error('❌ DATABASE_URL environment variable is not set!');
+  throw new Error('DATABASE_URL is required');
+}
+
+// Log connection info (masked for security)
+const dbUrl = process.env.DATABASE_URL;
+const maskedUrl = dbUrl.replace(/:([^:@]+)@/, ':****@');
+console.log('📡 Connecting to database:', maskedUrl);
+
 // Create connection pool
-// Supports both DATABASE_URL (Render/Heroku style) and individual variables
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: process.env.NODE_ENV === 'production' ? {
@@ -19,16 +29,22 @@ const pool = new Pool({
   keepAliveInitialDelayMillis: 10000
 });
 
+// Handle pool errors
+pool.on('error', (err) => {
+  console.error('❌ Unexpected database pool error:', err);
+});
+
 // Test connection
 async function connectDatabase() {
   try {
     const client = await pool.connect();
     const result = await client.query('SELECT NOW()');
     client.release();
-    console.log('Database connected at:', result.rows[0].now);
+    console.log('✅ Database connected at:', result.rows[0].now);
     return true;
   } catch (error) {
-    console.error('Database connection error:', error);
+    console.error('❌ Database connection error:', error.message);
+    console.error('Full error:', error);
     throw error;
   }
 }
@@ -46,7 +62,7 @@ async function query(text, params) {
     
     return result;
   } catch (error) {
-    console.error('Query error:', error);
+    console.error('❌ Query error:', error.message);
     throw error;
   }
 }
