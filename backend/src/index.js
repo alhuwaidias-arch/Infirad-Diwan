@@ -6,6 +6,7 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const { connectDatabase } = require('./database/connection');
+const { runMigrations } = require('./database/migrate');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -104,6 +105,9 @@ app.use((err, req, res, next) => {
 
 async function startServer() {
   try {
+    // Run database migrations first
+    await runMigrations();
+    
     // Connect to database
     await connectDatabase();
     console.log('✓ Database connected successfully');
