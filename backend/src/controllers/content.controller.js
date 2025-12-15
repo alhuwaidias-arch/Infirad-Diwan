@@ -1,6 +1,7 @@
 // Content Controller
 const { query, getClient } = require('../database/connection');
 const { v4: uuidv4 } = require('uuid');
+const { sendSubmissionNotification } = require('../services/email.service');
 
 /**
  * Helper function to generate slug from title
@@ -201,9 +202,24 @@ async function submitContent(req, res) {
       [title, slug, content, category_id, content_type, tags || [], authorId]
     );
     
+    const submission = result.rows[0];
+    
+    // Send email notification (async, don't wait)
+    sendSubmissionNotification(
+      {
+        ...submission,
+        title_ar: title,
+        content_ar: content,
+        type: content_type,
+        submitted_at: submission.created_at,
+        notes: req.body.notes || ''
+      },
+      req.user
+    ).catch(err => console.error('Email notification error:', err));
+    
     res.status(201).json({
       message: 'Content submitted successfully',
-      submission: result.rows[0]
+      content: submission
     });
     
   } catch (error) {

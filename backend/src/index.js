@@ -58,7 +58,8 @@ app.get('/', (req, res) => {
       auth: '/api/auth',
       users: '/api/users',
       content: '/api/content',
-      categories: '/api/categories'
+      categories: '/api/categories',
+      upload: '/api/upload'
     }
   });
 });
@@ -69,6 +70,7 @@ const userRoutes = require('./routes/user.routes');
 const contentRoutes = require('./routes/content.routes');
 const categoryRoutes = require('./routes/category.routes');
 const adminRoutes = require('./routes/admin');
+const uploadRoutes = require('./routes/upload.routes');
 
 // Mount routes
 app.use('/api/auth', authRoutes);
@@ -76,6 +78,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/content', contentRoutes);
 app.use('/api/categories', categoryRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/upload', uploadRoutes);
 
 // ============================================================================
 // ERROR HANDLING
