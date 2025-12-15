@@ -53,6 +53,7 @@ async function authenticate(req, res, next) {
     
   } catch (error) {
     if (error.name === 'JsonWebTokenError') {
+      console.error('JWT Error:', error.message);
       return res.status(401).json({
         error: 'Unauthorized',
         message: 'Invalid token'
@@ -60,6 +61,7 @@ async function authenticate(req, res, next) {
     }
     
     if (error.name === 'TokenExpiredError') {
+      console.error('Token Expired:', error.message);
       return res.status(401).json({
         error: 'Unauthorized',
         message: 'Token expired'
@@ -67,9 +69,13 @@ async function authenticate(req, res, next) {
     }
     
     console.error('Authentication error:', error);
+    console.error('Error name:', error.name);
+    console.error('Error message:', error.message);
+    console.error('Error stack:', error.stack);
     return res.status(500).json({
       error: 'Internal Server Error',
-      message: 'Authentication failed'
+      message: 'Authentication failed',
+      details: process.env.NODE_ENV === 'development' ? error.message : undefined
     });
   }
 }
