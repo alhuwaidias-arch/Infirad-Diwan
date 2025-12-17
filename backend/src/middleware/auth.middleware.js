@@ -24,9 +24,9 @@ async function authenticate(req, res, next) {
     
     // Get user from database
     const result = await query(
-      `SELECT id, email, full_name, role, status 
+      `SELECT user_id, email, full_name, role, status 
        FROM users 
-       WHERE id = $1`,
+       WHERE user_id = $1`,
       [decoded.userId]
     );
     
@@ -38,6 +38,9 @@ async function authenticate(req, res, next) {
     }
     
     const user = result.rows[0];
+    
+    // Map user_id to id for consistency in the application
+    user.id = user.user_id;
     
     // Check if user is active
     if (user.status !== 'active') {
@@ -119,14 +122,16 @@ async function optionalAuth(req, res, next) {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     
     const result = await query(
-      `SELECT id, email, full_name, role, status 
+      `SELECT user_id, email, full_name, role, status 
        FROM users 
-       WHERE id = $1 AND status = 'active'`,
+       WHERE user_id = $1 AND status = 'active'`,
       [decoded.userId]
     );
     
     if (result.rows.length > 0) {
-      req.user = result.rows[0];
+      const user = result.rows[0];
+      user.id = user.user_id;  // Map for consistency
+      req.user = user;
     }
     
     next();
