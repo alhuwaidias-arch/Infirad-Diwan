@@ -7,11 +7,12 @@ const { query } = require('../database/connection');
 async function getAllCategories(req, res) {
   try {
     const result = await query(
-      `SELECT c.id, c.name_ar, c.name_en, c.slug, c.description, c.icon, c.color, c.display_order,
-              COUNT(cs.id) as content_count
+      `SELECT c.category_id as id, c.name_ar, c.name_en, c.slug, c.description_ar as description, 
+              c.parent_category_id, c.display_order,
+              COUNT(cs.submission_id) as content_count
        FROM categories c
-       LEFT JOIN content_submissions cs ON c.id = cs.category_id AND cs.status = 'published'
-       GROUP BY c.id
+       LEFT JOIN content_submissions cs ON c.category_id = cs.category_id AND cs.submission_status = 'published'
+       GROUP BY c.category_id
        ORDER BY c.display_order ASC, c.name_ar ASC`
     );
     
@@ -36,12 +37,13 @@ async function getCategoryBySlug(req, res) {
     const { slug } = req.params;
     
     const result = await query(
-      `SELECT c.id, c.name_ar, c.name_en, c.slug, c.description, c.icon, c.color,
-              COUNT(cs.id) as content_count
+      `SELECT c.category_id as id, c.name_ar, c.name_en, c.slug, c.description_ar as description,
+              c.parent_category_id, c.display_order,
+              COUNT(cs.submission_id) as content_count
        FROM categories c
-       LEFT JOIN content_submissions cs ON c.id = cs.category_id AND cs.status = 'published'
+       LEFT JOIN content_submissions cs ON c.category_id = cs.category_id AND cs.submission_status = 'published'
        WHERE c.slug = $1
-       GROUP BY c.id`,
+       GROUP BY c.category_id`,
       [slug]
     );
     
@@ -54,10 +56,10 @@ async function getCategoryBySlug(req, res) {
     
     // Get recent content in this category
     const contentResult = await query(
-      `SELECT id, title, slug, content_type, published_at, view_count
+      `SELECT submission_id as id, title_ar as title, slug, content_type, submitted_at as published_at, view_count
        FROM content_submissions
-       WHERE category_id = $1 AND status = 'published'
-       ORDER BY published_at DESC
+       WHERE category_id = $1 AND submission_status = 'published'
+       ORDER BY submitted_at DESC
        LIMIT 10`,
       [result.rows[0].id]
     );
@@ -85,7 +87,7 @@ async function createCategory(req, res) {
     
     // Check if slug already exists
     const existingCategory = await query(
-      'SELECT id FROM categories WHERE slug = $1',
+      'SELECT category_id FROM categories WHERE slug = $1',
       [slug]
     );
     
@@ -97,10 +99,10 @@ async function createCategory(req, res) {
     }
     
     const result = await query(
-      `INSERT INTO categories (name_ar, name_en, slug, description, icon, color, display_order)
-       VALUES ($1, $2, $3, $4, $5, $6, $7)
-       RETURNING id, name_ar, name_en, slug, description, icon, color, display_order, created_at`,
-      [name_ar, name_en, slug, description, icon, color, display_order || 0]
+      `INSERT INTO categories (name_ar, name_en, slug, description_ar, parent_category_id, display_order)
+       VALUES ($1, $2, $3, $4, $5, $6)
+       RETURNING category_id as id, name_ar, name_en, slug, description_ar as description, display_order, created_at`,
+      [name_ar, name_en, slug, description, null, display_order || 0]
     );
     
     res.status(201).json({
@@ -145,7 +147,7 @@ async function updateCategory(req, res) {
     if (slug !== undefined) {
       // Check if new slug already exists (excluding current category)
       const existingCategory = await query(
-        'SELECT id FROM categories WHERE slug = $1 AND id != $2',
+        'SELECT category_id FROM categories WHERE slug = $1 AND category_id != $2',
         [slug, id]
       );
       
@@ -198,8 +200,8 @@ async function updateCategory(req, res) {
     const result = await query(
       `UPDATE categories
        SET ${updates.join(', ')}
-       WHERE id = $${paramCount}
-       RETURNING id, name_ar, name_en, slug, description, icon, color, display_order, updated_at`,
+       WHERE category_id = $${paramCount}
+       RETURNING category_id as id, name_ar, name_en, slug, description_ar as description, display_order`,
       values
     );
     
@@ -245,7 +247,7 @@ async function deleteCategory(req, res) {
     }
     
     const result = await query(
-      'DELETE FROM categories WHERE id = $1 RETURNING id, name_ar, name_en',
+      'DELETE FROM categories WHERE category_id = $1 RETURNING category_id as id, name_ar, name_en',
       [id]
     );
     
