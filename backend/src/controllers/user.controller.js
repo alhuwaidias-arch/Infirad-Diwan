@@ -66,8 +66,8 @@ async function updateProfile(req, res) {
     const result = await query(
       `UPDATE users 
        SET ${updates.join(', ')}
-       WHERE id = $${paramCount}
-       RETURNING id, email, username, full_name, bio, avatar_url, role, status, created_at, updated_at`,
+       WHERE user_id = $${paramCount}
+       RETURNING user_id as id, email, username, full_name, bio, avatar_url, role, status, created_at, updated_at`,
       values
     );
     
@@ -137,7 +137,7 @@ async function getAllUsers(req, res) {
     // Get users
     values.push(limit, offset);
     const result = await query(
-      `SELECT id, email, username, full_name, role, status, created_at, last_login
+      `SELECT user_id as id, email, username, full_name, role, status, created_at, last_login
        FROM users
        ${whereClause}
        ORDER BY created_at DESC
@@ -172,10 +172,10 @@ async function getUserById(req, res) {
     const { id } = req.params;
     
     const result = await query(
-      `SELECT id, email, username, full_name, bio, avatar_url, role, status, 
+      `SELECT user_id as id, email, username, full_name, bio, avatar_url, role, status, 
               email_verified, created_at, updated_at, last_login
        FROM users
-       WHERE id = $1`,
+       WHERE user_id = $1`,
       [id]
     );
     
@@ -192,7 +192,7 @@ async function getUserById(req, res) {
         (SELECT COUNT(*) FROM content_submissions WHERE author_id = $1) as total_submissions,
         (SELECT COUNT(*) FROM content_submissions WHERE author_id = $1 AND status = 'published') as published_count,
         (SELECT COUNT(*) FROM workflow_history WHERE reviewer_id = $1) as reviews_count
-       FROM users WHERE id = $1`,
+       FROM users WHERE user_id = $1`,
       [id]
     );
     
@@ -242,8 +242,8 @@ async function updateUserRole(req, res) {
     const result = await query(
       `UPDATE users
        SET role = $1, updated_at = CURRENT_TIMESTAMP
-       WHERE id = $2
-       RETURNING id, email, username, full_name, role, status`,
+       WHERE user_id = $2
+       RETURNING user_id as id, email, username, full_name, role, status`,
       [role, id]
     );
     
@@ -285,7 +285,7 @@ async function deleteUser(req, res) {
     
     // Check if user exists
     const userCheck = await query(
-      'SELECT id, email FROM users WHERE id = $1',
+      'SELECT user_id as id, email FROM users WHERE user_id = $1',
       [id]
     );
     
@@ -300,7 +300,7 @@ async function deleteUser(req, res) {
     await query(
       `UPDATE users
        SET status = 'deleted', updated_at = CURRENT_TIMESTAMP
-       WHERE id = $1`,
+       WHERE user_id = $1`,
       [id]
     );
     
@@ -339,7 +339,7 @@ async function changePassword(req, res) {
     
     // Get current password hash
     const result = await query(
-      'SELECT password_hash FROM users WHERE id = $1',
+      'SELECT password_hash FROM users WHERE user_id = $1',
       [userId]
     );
     
@@ -367,7 +367,7 @@ async function changePassword(req, res) {
     await query(
       `UPDATE users
        SET password_hash = $1, updated_at = CURRENT_TIMESTAMP
-       WHERE id = $2`,
+       WHERE user_id = $2`,
       [newPasswordHash, userId]
     );
     
