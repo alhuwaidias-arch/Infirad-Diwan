@@ -12,8 +12,8 @@ async function processSubmission(submissionId) {
     const submissionResult = await query(
       `SELECT cs.*, u.email as author_email, u.full_name as author_name
        FROM content_submissions cs
-       JOIN users u ON cs.author_id = u.id
-       WHERE cs.id = $1`,
+       JOIN users u ON cs.contributor_id = u.user_id
+       WHERE cs.submission_id = $1`,
       [submissionId]
     );
     
@@ -26,8 +26,8 @@ async function processSubmission(submissionId) {
     // Update status to pending content review
     await query(
       `UPDATE content_submissions 
-       SET status = 'pending_content_review', updated_at = CURRENT_TIMESTAMP
-       WHERE id = $1`,
+       SET submission_status = 'submitted', updated_at = CURRENT_TIMESTAMP
+       WHERE submission_id = $1`,
       [submissionId]
     );
     
@@ -71,9 +71,9 @@ async function processReviewDecision(submissionId, reviewerId, decision, comment
       `SELECT cs.*, u.email as author_email, u.full_name as author_name,
               r.role as reviewer_role
        FROM content_submissions cs
-       JOIN users u ON cs.author_id = u.id
-       JOIN users r ON r.id = $2
-       WHERE cs.id = $1`,
+       JOIN users u ON cs.contributor_id = u.user_id
+       JOIN users r ON r.user_id = $2
+       WHERE cs.submission_id = $1`,
       [submissionId, reviewerId]
     );
     
@@ -146,8 +146,8 @@ async function processPublication(contentId) {
     const contentResult = await query(
       `SELECT cs.*, u.email as author_email, u.full_name as author_name
        FROM content_submissions cs
-       JOIN users u ON cs.author_id = u.id
-       WHERE cs.id = $1`,
+       JOIN users u ON cs.contributor_id = u.user_id
+       WHERE cs.submission_id = $1`,
       [contentId]
     );
     
@@ -179,14 +179,14 @@ async function getWorkflowStatistics() {
   try {
     const result = await query(`
       SELECT 
-        COUNT(*) FILTER (WHERE status = 'draft') as draft_count,
-        COUNT(*) FILTER (WHERE status = 'pending_content_review') as pending_content_review,
-        COUNT(*) FILTER (WHERE status = 'pending_technical_review') as pending_technical_review,
-        COUNT(*) FILTER (WHERE status = 'approved') as approved_count,
-        COUNT(*) FILTER (WHERE status = 'published') as published_count,
-        COUNT(*) FILTER (WHERE status = 'rejected') as rejected_count,
-        COUNT(*) FILTER (WHERE status = 'needs_revision') as needs_revision_count,
-        AVG(EXTRACT(EPOCH FROM (published_at - created_at))) FILTER (WHERE published_at IS NOT NULL) as avg_time_to_publish
+        COUNT(*) FILTER (WHERE submission_status = 'draft') as draft_count,
+        COUNT(*) FILTER (WHERE submission_status = 'submitted') as pending_content_review,
+        COUNT(*) FILTER (WHERE submission_status = 'under_technical_review') as pending_technical_review,
+        COUNT(*) FILTER (WHERE submission_status = 'approved') as approved_count,
+        COUNT(*) FILTER (WHERE submission_status = 'published') as published_count,
+        COUNT(*) FILTER (WHERE submission_status = 'rejected') as rejected_count,
+        COUNT(*) FILTER (WHERE submission_status = 'draft') as needs_revision_count,
+        AVG(EXTRACT(EPOCH FROM (submitted_at - created_at))) FILTER (WHERE submitted_at IS NOT NULL) as avg_time_to_publish
       FROM content_submissions
     `);
     
@@ -205,11 +205,11 @@ async function getPendingReviewsCount(role) {
   try {
     let statusCondition;
     if (role === 'content_auditor') {
-      statusCondition = "status = 'pending_content_review'";
+      statusCondition = "submission_status = 'submitted'";
     } else if (role === 'technical_auditor') {
-      statusCondition = "status = 'pending_technical_review'";
+      statusCondition = "submission_status = 'under_technical_review'";
     } else if (role === 'admin') {
-      statusCondition = "status = 'approved'";
+      statusCondition = "submission_status = 'approved'";
     } else {
       return 0;
     }
