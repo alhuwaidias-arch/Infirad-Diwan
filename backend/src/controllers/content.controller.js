@@ -1,4 +1,5 @@
-// Content Controller
+// Content Controller - Fixed for correct database schema
+// Database columns: submission_id, contributor_id, title_ar, content_ar, submission_status
 const { query, getClient } = require('../database/connection');
 const { v4: uuidv4 } = require('uuid');
 const { sendSubmissionNotification } = require('../services/email.service');
@@ -24,7 +25,7 @@ async function getPublishedContent(req, res) {
     const { page = 1, limit = 20, category, content_type, search } = req.query;
     const offset = (page - 1) * limit;
     
-    const conditions = ["status = 'published'"];
+    const conditions = ["submission_status = 'published'"];
     const values = [];
     let paramCount = 1;
     
@@ -41,7 +42,7 @@ async function getPublishedContent(req, res) {
     }
     
     if (search) {
-      conditions.push(`(title ILIKE $${paramCount} OR content ILIKE $${paramCount})`);
+      conditions.push(`(title_ar ILIKE $${paramCount} OR content_ar ILIKE $${paramCount})`);
       values.push(`%${search}%`);
       paramCount++;
     }
@@ -59,21 +60,27 @@ async function getPublishedContent(req, res) {
     // Get content
     values.push(limit, offset);
     const result = await query(
-      `SELECT cs.id, cs.title, cs.slug, cs.content, cs.content_type, cs.tags,
-              cs.published_at, cs.view_count,
+      `SELECT cs.submission_id, cs.title_ar as title, cs.slug, cs.content_ar as content, 
+              cs.content_type, cs.tags, cs.submitted_at as published_at, cs.view_count,
               c.name_ar as category_name_ar, c.name_en as category_name_en,
               u.full_name as author_name, u.username as author_username
        FROM content_submissions cs
-       LEFT JOIN categories c ON cs.category_id = c.id
-       LEFT JOIN users u ON cs.author_id = u.id
+       LEFT JOIN categories c ON cs.category_id = c.category_id
+       LEFT JOIN users u ON cs.contributor_id = u.user_id
        WHERE ${whereClause}
-       ORDER BY cs.published_at DESC
+       ORDER BY cs.submitted_at DESC
        LIMIT $${paramCount} OFFSET $${paramCount + 1}`,
       values
     );
     
+    // Map submission_id to id for frontend compatibility
+    const content = result.rows.map(row => ({
+      id: row.submission_id,
+      ...row
+    }));
+    
     res.json({
-      content: result.rows,
+      content,
       pagination: {
         page: parseInt(page),
         limit: parseInt(limit),
@@ -99,14 +106,14 @@ async function getPublishedBySlug(req, res) {
     const { slug } = req.params;
     
     const result = await query(
-      `SELECT cs.id, cs.title, cs.slug, cs.content, cs.content_type, cs.tags,
-              cs.published_at, cs.view_count,
-              c.id as category_id, c.name_ar as category_name_ar, c.name_en as category_name_en, c.slug as category_slug,
-              u.id as author_id, u.full_name as author_name, u.username as author_username, u.bio as author_bio
+      `SELECT cs.submission_id, cs.title_ar as title, cs.slug, cs.content_ar as content, 
+              cs.content_type, cs.tags, cs.submitted_at as published_at, cs.view_count,
+              c.category_id, c.name_ar as category_name_ar, c.name_en as category_name_en, c.slug as category_slug,
+              u.user_id as author_id, u.full_name as author_name, u.username as author_username, u.bio as author_bio
        FROM content_submissions cs
-       LEFT JOIN categories c ON cs.category_id = c.id
-       LEFT JOIN users u ON cs.author_id = u.id
-       WHERE cs.slug = $1 AND cs.status = 'published'`,
+       LEFT JOIN categories c ON cs.category_id = c.category_id
+       LEFT JOIN users u ON cs.contributor_id = u.user_id
+       WHERE cs.slug = $1 AND cs.submission_status = 'published'`,
       [slug]
     );
     
@@ -119,13 +126,17 @@ async function getPublishedBySlug(req, res) {
     
     // Increment view count
     await query(
-      'UPDATE content_submissions SET view_count = view_count + 1 WHERE id = $1',
-      [result.rows[0].id]
+      'UPDATE content_submissions SET view_count = COALESCE(view_count, 0) + 1 WHERE submission_id = $1',
+      [result.rows[0].submission_id]
     );
     
-    res.json({
-      content: result.rows[0]
-    });
+    // Map for frontend compatibility
+    const content = {
+      id: result.rows[0].submission_id,
+      ...result.rows[0]
+    };
+    
+    res.json({ content });
     
   } catch (error) {
     console.error('Get published by slug error:', error);
@@ -151,27 +162,33 @@ async function searchContent(req, res) {
     }
     
     const offset = (page - 1) * limit;
+    const searchTerm = `%${q}%`;
     
-    // Full-text search using PostgreSQL
+    // Simple ILIKE search (more reliable than full-text for Arabic)
     const result = await query(
-      `SELECT cs.id, cs.title, cs.slug, cs.content_type, cs.published_at,
+      `SELECT cs.submission_id, cs.title_ar as title, cs.slug, cs.content_type, cs.submitted_at as published_at,
               c.name_ar as category_name_ar,
-              u.full_name as author_name,
-              ts_rank(to_tsvector('arabic', cs.title || ' ' || cs.content), plainto_tsquery('arabic', $1)) as rank
+              u.full_name as author_name
        FROM content_submissions cs
-       LEFT JOIN categories c ON cs.category_id = c.id
-       LEFT JOIN users u ON cs.author_id = u.id
-       WHERE cs.status = 'published'
-         AND to_tsvector('arabic', cs.title || ' ' || cs.content) @@ plainto_tsquery('arabic', $1)
-       ORDER BY rank DESC, cs.published_at DESC
+       LEFT JOIN categories c ON cs.category_id = c.category_id
+       LEFT JOIN users u ON cs.contributor_id = u.user_id
+       WHERE cs.submission_status = 'published'
+         AND (cs.title_ar ILIKE $1 OR cs.content_ar ILIKE $1)
+       ORDER BY cs.submitted_at DESC
        LIMIT $2 OFFSET $3`,
-      [q, limit, offset]
+      [searchTerm, limit, offset]
     );
     
+    // Map for frontend compatibility
+    const results = result.rows.map(row => ({
+      id: row.submission_id,
+      ...row
+    }));
+    
     res.json({
-      results: result.rows,
+      results,
       query: q,
-      count: result.rows.length
+      count: results.length
     });
     
   } catch (error) {
@@ -189,20 +206,30 @@ async function searchContent(req, res) {
 async function submitContent(req, res) {
   try {
     const { title, content, category_id, content_type, tags } = req.body;
-    const authorId = req.user.id;
+    const contributorId = req.user.id; // This is mapped from user_id
+    
+    // Validate required fields
+    if (!title || !content || !category_id || !content_type) {
+      return res.status(400).json({
+        error: 'Bad Request',
+        message: 'Title, content, category_id, and content_type are required'
+      });
+    }
     
     // Generate slug from title
     const slug = generateSlug(title) + '-' + Date.now();
     
+    // Insert using correct column names
     const result = await query(
       `INSERT INTO content_submissions 
-       (title, slug, content, category_id, content_type, tags, author_id, status)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, 'draft')
-       RETURNING id, title, slug, content_type, status, created_at`,
-      [title, slug, content, category_id, content_type, tags || [], authorId]
+       (title_ar, slug, content_ar, category_id, content_type, tags, contributor_id, submission_status, submitted_at)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, 'submitted', CURRENT_TIMESTAMP)
+       RETURNING submission_id, title_ar as title, slug, content_type, submission_status as status, created_at`,
+      [title, slug, content, category_id, content_type, tags || [], contributorId]
     );
     
     const submission = result.rows[0];
+    submission.id = submission.submission_id; // Map for frontend compatibility
     
     // Send email notification (async, don't wait)
     sendSubmissionNotification(
@@ -226,7 +253,8 @@ async function submitContent(req, res) {
     console.error('Submit content error:', error);
     res.status(500).json({ 
       error: 'Internal Server Error',
-      message: 'Failed to submit content'
+      message: 'Failed to submit content',
+      details: process.env.NODE_ENV === 'development' ? error.message : undefined
     });
   }
 }
@@ -237,15 +265,15 @@ async function submitContent(req, res) {
 async function getUserSubmissions(req, res) {
   try {
     const { page = 1, limit = 20, status } = req.query;
-    const authorId = req.user.id;
+    const contributorId = req.user.id;
     const offset = (page - 1) * limit;
     
-    let whereClause = 'WHERE author_id = $1';
-    const values = [authorId];
+    let whereClause = 'WHERE contributor_id = $1';
+    const values = [contributorId];
     let paramCount = 2;
     
     if (status) {
-      whereClause += ` AND status = $${paramCount}`;
+      whereClause += ` AND submission_status = $${paramCount}`;
       values.push(status);
       paramCount++;
     }
@@ -261,18 +289,25 @@ async function getUserSubmissions(req, res) {
     // Get submissions
     values.push(limit, offset);
     const result = await query(
-      `SELECT cs.id, cs.title, cs.slug, cs.content_type, cs.status, cs.created_at, cs.updated_at,
+      `SELECT cs.submission_id, cs.title_ar as title, cs.slug, cs.content_type, 
+              cs.submission_status as status, cs.created_at, cs.updated_at,
               c.name_ar as category_name_ar
        FROM content_submissions cs
-       LEFT JOIN categories c ON cs.category_id = c.id
+       LEFT JOIN categories c ON cs.category_id = c.category_id
        ${whereClause}
        ORDER BY cs.created_at DESC
        LIMIT $${paramCount} OFFSET $${paramCount + 1}`,
       values
     );
     
+    // Map for frontend compatibility
+    const submissions = result.rows.map(row => ({
+      id: row.submission_id,
+      ...row
+    }));
+    
     res.json({
-      submissions: result.rows,
+      submissions,
       pagination: {
         page: parseInt(page),
         limit: parseInt(limit),
@@ -301,11 +336,11 @@ async function getSubmissionById(req, res) {
     
     // Contributors can only see their own submissions
     // Auditors and admins can see all
-    let whereClause = 'WHERE cs.id = $1';
+    let whereClause = 'WHERE cs.submission_id = $1';
     const values = [id];
     
     if (userRole === 'contributor') {
-      whereClause += ' AND cs.author_id = $2';
+      whereClause += ' AND cs.contributor_id = $2';
       values.push(userId);
     }
     
@@ -314,8 +349,8 @@ async function getSubmissionById(req, res) {
               c.name_ar as category_name_ar, c.name_en as category_name_en,
               u.full_name as author_name, u.email as author_email
        FROM content_submissions cs
-       LEFT JOIN categories c ON cs.category_id = c.id
-       LEFT JOIN users u ON cs.author_id = u.id
+       LEFT JOIN categories c ON cs.category_id = c.category_id
+       LEFT JOIN users u ON cs.contributor_id = u.user_id
        ${whereClause}`,
       values
     );
@@ -331,14 +366,23 @@ async function getSubmissionById(req, res) {
     const historyResult = await query(
       `SELECT wh.*, u.full_name as reviewer_name, u.role as reviewer_role
        FROM workflow_history wh
-       LEFT JOIN users u ON wh.reviewer_id = u.id
+       LEFT JOIN users u ON wh.reviewer_id = u.user_id
        WHERE wh.submission_id = $1
        ORDER BY wh.created_at DESC`,
       [id]
     );
     
+    // Map for frontend compatibility
+    const submission = {
+      id: result.rows[0].submission_id,
+      title: result.rows[0].title_ar,
+      content: result.rows[0].content_ar,
+      status: result.rows[0].submission_status,
+      ...result.rows[0]
+    };
+    
     res.json({
-      submission: result.rows[0],
+      submission,
       workflow_history: historyResult.rows
     });
     
@@ -352,18 +396,18 @@ async function getSubmissionById(req, res) {
 }
 
 /**
- * Update submission (contributor - own submissions only, draft status only)
+ * Update submission (contributor - own drafts only)
  */
 async function updateSubmission(req, res) {
   try {
     const { id } = req.params;
-    const { title, content, category_id, tags } = req.body;
-    const authorId = req.user.id;
+    const { title, content, category_id, content_type, tags } = req.body;
+    const contributorId = req.user.id;
     
-    // Check if submission exists and is owned by user
+    // Check if submission exists and is owned by user and is a draft
     const checkResult = await query(
-      'SELECT status FROM content_submissions WHERE id = $1 AND author_id = $2',
-      [id, authorId]
+      'SELECT submission_status FROM content_submissions WHERE submission_id = $1 AND contributor_id = $2',
+      [id, contributorId]
     );
     
     if (checkResult.rows.length === 0) {
@@ -373,70 +417,35 @@ async function updateSubmission(req, res) {
       });
     }
     
-    // Only allow editing draft submissions
-    if (checkResult.rows[0].status !== 'draft') {
-      return res.status(403).json({
-        error: 'Forbidden',
+    if (checkResult.rows[0].submission_status !== 'draft') {
+      return res.status(400).json({
+        error: 'Bad Request',
         message: 'Can only edit draft submissions'
       });
     }
     
-    // Build update query
-    const updates = [];
-    const values = [];
-    let paramCount = 1;
-    
-    if (title !== undefined) {
-      updates.push(`title = $${paramCount}`);
-      values.push(title);
-      paramCount++;
-      
-      // Update slug if title changes
-      const newSlug = generateSlug(title) + '-' + Date.now();
-      updates.push(`slug = $${paramCount}`);
-      values.push(newSlug);
-      paramCount++;
-    }
-    
-    if (content !== undefined) {
-      updates.push(`content = $${paramCount}`);
-      values.push(content);
-      paramCount++;
-    }
-    
-    if (category_id !== undefined) {
-      updates.push(`category_id = $${paramCount}`);
-      values.push(category_id);
-      paramCount++;
-    }
-    
-    if (tags !== undefined) {
-      updates.push(`tags = $${paramCount}`);
-      values.push(tags);
-      paramCount++;
-    }
-    
-    if (updates.length === 0) {
-      return res.status(400).json({
-        error: 'Bad Request',
-        message: 'No fields to update'
-      });
-    }
-    
-    updates.push(`updated_at = CURRENT_TIMESTAMP`);
-    values.push(id);
-    
+    // Update submission
     const result = await query(
       `UPDATE content_submissions
-       SET ${updates.join(', ')}
-       WHERE id = $${paramCount}
-       RETURNING id, title, slug, content_type, status, updated_at`,
-      values
+       SET title_ar = COALESCE($1, title_ar),
+           content_ar = COALESCE($2, content_ar),
+           category_id = COALESCE($3, category_id),
+           content_type = COALESCE($4, content_type),
+           tags = COALESCE($5, tags),
+           updated_at = CURRENT_TIMESTAMP
+       WHERE submission_id = $6 AND contributor_id = $7
+       RETURNING submission_id, title_ar as title, slug, content_type, submission_status as status, updated_at`,
+      [title, content, category_id, content_type, tags, id, contributorId]
     );
+    
+    const submission = {
+      id: result.rows[0].submission_id,
+      ...result.rows[0]
+    };
     
     res.json({
       message: 'Submission updated successfully',
-      submission: result.rows[0]
+      submission
     });
     
   } catch (error) {
@@ -449,17 +458,17 @@ async function updateSubmission(req, res) {
 }
 
 /**
- * Delete submission (contributor - own submissions only, draft status only)
+ * Delete submission (contributor - own drafts only)
  */
 async function deleteSubmission(req, res) {
   try {
     const { id } = req.params;
-    const authorId = req.user.id;
+    const contributorId = req.user.id;
     
-    // Check if submission exists and is owned by user
+    // Check if submission exists and is owned by user and is a draft
     const checkResult = await query(
-      'SELECT status FROM content_submissions WHERE id = $1 AND author_id = $2',
-      [id, authorId]
+      'SELECT submission_status FROM content_submissions WHERE submission_id = $1 AND contributor_id = $2',
+      [id, contributorId]
     );
     
     if (checkResult.rows.length === 0) {
@@ -469,15 +478,18 @@ async function deleteSubmission(req, res) {
       });
     }
     
-    // Only allow deleting draft submissions
-    if (checkResult.rows[0].status !== 'draft') {
-      return res.status(403).json({
-        error: 'Forbidden',
+    if (checkResult.rows[0].submission_status !== 'draft') {
+      return res.status(400).json({
+        error: 'Bad Request',
         message: 'Can only delete draft submissions'
       });
     }
     
-    await query('DELETE FROM content_submissions WHERE id = $1', [id]);
+    // Delete submission
+    await query(
+      'DELETE FROM content_submissions WHERE submission_id = $1 AND contributor_id = $2',
+      [id, contributorId]
+    );
     
     res.json({
       message: 'Submission deleted successfully'
@@ -493,48 +505,62 @@ async function deleteSubmission(req, res) {
 }
 
 /**
- * Get pending reviews (auditors)
+ * Get pending submissions (auditor)
  */
-async function getPendingReviews(req, res) {
+async function getPendingSubmissions(req, res) {
   try {
-    const { page = 1, limit = 20 } = req.query;
-    const userRole = req.user.role;
+    const { page = 1, limit = 20, status = 'submitted' } = req.query;
     const offset = (page - 1) * limit;
+    const userRole = req.user.role;
     
-    // Determine which status to show based on role
-    let statusCondition;
+    // Determine which statuses this role can review
+    let allowedStatuses = [];
     if (userRole === 'content_auditor') {
-      statusCondition = "status = 'pending_content_review'";
+      allowedStatuses = ['submitted', 'under_content_review'];
     } else if (userRole === 'technical_auditor') {
-      statusCondition = "status = 'pending_technical_review'";
-    } else {
-      // Admin can see all pending
-      statusCondition = "status IN ('pending_content_review', 'pending_technical_review')";
+      allowedStatuses = ['under_technical_review'];
+    } else if (userRole === 'admin') {
+      allowedStatuses = ['submitted', 'under_content_review', 'under_technical_review', 'approved'];
+    }
+    
+    if (!allowedStatuses.includes(status)) {
+      return res.status(403).json({
+        error: 'Forbidden',
+        message: 'You cannot review submissions with this status'
+      });
     }
     
     // Get total count
     const countResult = await query(
-      `SELECT COUNT(*) FROM content_submissions WHERE ${statusCondition}`
+      'SELECT COUNT(*) FROM content_submissions WHERE submission_status = $1',
+      [status]
     );
     
     const total = parseInt(countResult.rows[0].count);
     
     // Get submissions
     const result = await query(
-      `SELECT cs.id, cs.title, cs.slug, cs.content_type, cs.status, cs.created_at,
+      `SELECT cs.submission_id, cs.title_ar as title, cs.slug, cs.content_type, 
+              cs.submission_status as status, cs.created_at,
               c.name_ar as category_name_ar,
               u.full_name as author_name, u.email as author_email
        FROM content_submissions cs
-       LEFT JOIN categories c ON cs.category_id = c.id
-       LEFT JOIN users u ON cs.author_id = u.id
-       WHERE ${statusCondition}
+       LEFT JOIN categories c ON cs.category_id = c.category_id
+       LEFT JOIN users u ON cs.contributor_id = u.user_id
+       WHERE cs.submission_status = $1
        ORDER BY cs.created_at ASC
-       LIMIT $1 OFFSET $2`,
-      [limit, offset]
+       LIMIT $2 OFFSET $3`,
+      [status, limit, offset]
     );
     
+    // Map for frontend compatibility
+    const submissions = result.rows.map(row => ({
+      id: row.submission_id,
+      ...row
+    }));
+    
     res.json({
-      submissions: result.rows,
+      submissions,
       pagination: {
         page: parseInt(page),
         limit: parseInt(limit),
@@ -544,133 +570,35 @@ async function getPendingReviews(req, res) {
     });
     
   } catch (error) {
-    console.error('Get pending reviews error:', error);
+    console.error('Get pending submissions error:', error);
     res.status(500).json({ 
       error: 'Internal Server Error',
-      message: 'Failed to get pending reviews'
+      message: 'Failed to get pending submissions'
     });
   }
 }
 
 /**
- * Submit review (auditors)
+ * Review submission (auditor)
  */
-async function submitReview(req, res) {
-  const client = await getClient();
-  
+async function reviewSubmission(req, res) {
   try {
-    await client.query('BEGIN');
-    
     const { id } = req.params;
     const { decision, comments } = req.body;
     const reviewerId = req.user.id;
     const reviewerRole = req.user.role;
     
-    // Get submission
-    const submissionResult = await client.query(
-      'SELECT status, author_id FROM content_submissions WHERE id = $1',
-      [id]
-    );
-    
-    if (submissionResult.rows.length === 0) {
-      await client.query('ROLLBACK');
-      return res.status(404).json({
-        error: 'Not Found',
-        message: 'Submission not found'
+    // Validate decision
+    if (!['approve', 'reject', 'request_changes'].includes(decision)) {
+      return res.status(400).json({
+        error: 'Bad Request',
+        message: 'Invalid decision. Must be approve, reject, or request_changes'
       });
     }
     
-    const submission = submissionResult.rows[0];
-    
-    // Validate reviewer can review this submission
-    if (reviewerRole === 'content_auditor' && submission.status !== 'pending_content_review') {
-      await client.query('ROLLBACK');
-      return res.status(403).json({
-        error: 'Forbidden',
-        message: 'This submission is not pending content review'
-      });
-    }
-    
-    if (reviewerRole === 'technical_auditor' && submission.status !== 'pending_technical_review') {
-      await client.query('ROLLBACK');
-      return res.status(403).json({
-        error: 'Forbidden',
-        message: 'This submission is not pending technical review'
-      });
-    }
-    
-    // Determine new status based on decision
-    let newStatus;
-    if (decision === 'approved') {
-      if (reviewerRole === 'content_auditor') {
-        newStatus = 'pending_technical_review';
-      } else if (reviewerRole === 'technical_auditor') {
-        newStatus = 'approved';
-      }
-    } else if (decision === 'rejected') {
-      newStatus = 'rejected';
-    } else if (decision === 'needs_revision') {
-      newStatus = 'needs_revision';
-    }
-    
-    // Update submission status
-    await client.query(
-      'UPDATE content_submissions SET status = $1, updated_at = CURRENT_TIMESTAMP WHERE id = $2',
-      [newStatus, id]
-    );
-    
-    // Record in workflow history
-    await client.query(
-      `INSERT INTO workflow_history (submission_id, reviewer_id, from_status, to_status, decision, comments)
-       VALUES ($1, $2, $3, $4, $5, $6)`,
-      [id, reviewerId, submission.status, newStatus, decision, comments]
-    );
-    
-    await client.query('COMMIT');
-    
-    res.json({
-      message: 'Review submitted successfully',
-      new_status: newStatus
-    });
-    
-  } catch (error) {
-    await client.query('ROLLBACK');
-    console.error('Submit review error:', error);
-    res.status(500).json({ 
-      error: 'Internal Server Error',
-      message: 'Failed to submit review'
-    });
-  } finally {
-    client.release();
-  }
-}
-
-/**
- * Approve content (shortcut for auditors)
- */
-async function approveContent(req, res) {
-  req.body.decision = 'approved';
-  return submitReview(req, res);
-}
-
-/**
- * Reject content (shortcut for auditors)
- */
-async function rejectContent(req, res) {
-  req.body.decision = 'rejected';
-  return submitReview(req, res);
-}
-
-/**
- * Publish content (admin only)
- */
-async function publishContent(req, res) {
-  try {
-    const { id } = req.params;
-    
-    // Check if submission is approved
+    // Get current submission status
     const checkResult = await query(
-      'SELECT status FROM content_submissions WHERE id = $1',
+      'SELECT submission_status, contributor_id FROM content_submissions WHERE submission_id = $1',
       [id]
     );
     
@@ -681,25 +609,104 @@ async function publishContent(req, res) {
       });
     }
     
-    if (checkResult.rows[0].status !== 'approved') {
-      return res.status(403).json({
-        error: 'Forbidden',
+    const currentStatus = checkResult.rows[0].submission_status;
+    
+    // Determine new status based on role and decision
+    let newStatus;
+    if (reviewerRole === 'content_auditor') {
+      if (decision === 'approve') {
+        newStatus = 'under_technical_review';
+      } else if (decision === 'reject') {
+        newStatus = 'rejected';
+      } else {
+        newStatus = 'draft'; // Request changes
+      }
+    } else if (reviewerRole === 'technical_auditor') {
+      if (decision === 'approve') {
+        newStatus = 'approved';
+      } else if (decision === 'reject') {
+        newStatus = 'rejected';
+      } else {
+        newStatus = 'under_content_review'; // Request changes
+      }
+    } else if (reviewerRole === 'admin') {
+      if (decision === 'approve') {
+        newStatus = 'published';
+      } else if (decision === 'reject') {
+        newStatus = 'rejected';
+      } else {
+        newStatus = currentStatus; // Keep current status
+      }
+    }
+    
+    // Update submission status
+    await query(
+      'UPDATE content_submissions SET submission_status = $1, updated_at = CURRENT_TIMESTAMP WHERE submission_id = $2',
+      [newStatus, id]
+    );
+    
+    // Record in workflow history
+    await query(
+      `INSERT INTO workflow_history (submission_id, reviewer_id, action, from_status, to_status, comments)
+       VALUES ($1, $2, $3, $4, $5, $6)`,
+      [id, reviewerId, decision, currentStatus, newStatus, comments]
+    );
+    
+    res.json({
+      message: 'Review submitted successfully',
+      submission: {
+        id,
+        previous_status: currentStatus,
+        new_status: newStatus
+      }
+    });
+    
+  } catch (error) {
+    console.error('Review submission error:', error);
+    res.status(500).json({ 
+      error: 'Internal Server Error',
+      message: 'Failed to submit review'
+    });
+  }
+}
+
+/**
+ * Publish content (admin)
+ */
+async function publishContent(req, res) {
+  try {
+    const { id } = req.params;
+    
+    // Check if submission is approved
+    const checkResult = await query(
+      'SELECT submission_status FROM content_submissions WHERE submission_id = $1',
+      [id]
+    );
+    
+    if (checkResult.rows.length === 0) {
+      return res.status(404).json({
+        error: 'Not Found',
+        message: 'Submission not found'
+      });
+    }
+    
+    if (checkResult.rows[0].submission_status !== 'approved') {
+      return res.status(400).json({
+        error: 'Bad Request',
         message: 'Can only publish approved submissions'
       });
     }
     
-    // Publish
-    const result = await query(
-      `UPDATE content_submissions
-       SET status = 'published', published_at = CURRENT_TIMESTAMP, updated_at = CURRENT_TIMESTAMP
-       WHERE id = $1
-       RETURNING id, title, slug, status, published_at`,
+    // Update to published
+    await query(
+      `UPDATE content_submissions 
+       SET submission_status = 'published', submitted_at = CURRENT_TIMESTAMP, updated_at = CURRENT_TIMESTAMP 
+       WHERE submission_id = $1`,
       [id]
     );
     
     res.json({
-      message: 'Content published successfully',
-      content: result.rows[0]
+      message: 'Content published successfully'
     });
     
   } catch (error) {
@@ -707,118 +714,6 @@ async function publishContent(req, res) {
     res.status(500).json({ 
       error: 'Internal Server Error',
       message: 'Failed to publish content'
-    });
-  }
-}
-
-/**
- * Update published content (admin only)
- */
-async function updatePublishedContent(req, res) {
-  try {
-    const { id } = req.params;
-    const { title, content, category_id, tags } = req.body;
-    
-    // Build update query
-    const updates = [];
-    const values = [];
-    let paramCount = 1;
-    
-    if (title !== undefined) {
-      updates.push(`title = $${paramCount}`);
-      values.push(title);
-      paramCount++;
-    }
-    
-    if (content !== undefined) {
-      updates.push(`content = $${paramCount}`);
-      values.push(content);
-      paramCount++;
-    }
-    
-    if (category_id !== undefined) {
-      updates.push(`category_id = $${paramCount}`);
-      values.push(category_id);
-      paramCount++;
-    }
-    
-    if (tags !== undefined) {
-      updates.push(`tags = $${paramCount}`);
-      values.push(tags);
-      paramCount++;
-    }
-    
-    if (updates.length === 0) {
-      return res.status(400).json({
-        error: 'Bad Request',
-        message: 'No fields to update'
-      });
-    }
-    
-    updates.push(`updated_at = CURRENT_TIMESTAMP`);
-    values.push(id);
-    
-    const result = await query(
-      `UPDATE content_submissions
-       SET ${updates.join(', ')}
-       WHERE id = $${paramCount} AND status = 'published'
-       RETURNING id, title, slug, updated_at`,
-      values
-    );
-    
-    if (result.rows.length === 0) {
-      return res.status(404).json({
-        error: 'Not Found',
-        message: 'Published content not found'
-      });
-    }
-    
-    res.json({
-      message: 'Published content updated successfully',
-      content: result.rows[0]
-    });
-    
-  } catch (error) {
-    console.error('Update published content error:', error);
-    res.status(500).json({ 
-      error: 'Internal Server Error',
-      message: 'Failed to update published content'
-    });
-  }
-}
-
-/**
- * Unpublish content (admin only)
- */
-async function unpublishContent(req, res) {
-  try {
-    const { id } = req.params;
-    
-    const result = await query(
-      `UPDATE content_submissions
-       SET status = 'draft', published_at = NULL, updated_at = CURRENT_TIMESTAMP
-       WHERE id = $1 AND status = 'published'
-       RETURNING id, title, status`,
-      [id]
-    );
-    
-    if (result.rows.length === 0) {
-      return res.status(404).json({
-        error: 'Not Found',
-        message: 'Published content not found'
-      });
-    }
-    
-    res.json({
-      message: 'Content unpublished successfully',
-      content: result.rows[0]
-    });
-    
-  } catch (error) {
-    console.error('Unpublish content error:', error);
-    res.status(500).json({ 
-      error: 'Internal Server Error',
-      message: 'Failed to unpublish content'
     });
   }
 }
@@ -832,11 +727,7 @@ module.exports = {
   getSubmissionById,
   updateSubmission,
   deleteSubmission,
-  getPendingReviews,
-  submitReview,
-  approveContent,
-  rejectContent,
-  publishContent,
-  updatePublishedContent,
-  unpublishContent
+  getPendingSubmissions,
+  reviewSubmission,
+  publishContent
 };
